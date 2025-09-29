@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
+import 'package:manga_reader_app/view/detail_screen.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,22 +26,48 @@ class _HomeScreenState extends State<HomeScreen> {
           List<MangaData>? mangas = viewModel.mangas;
           int? mangasCount = mangas.length;
 
+          bool isLoading = viewModel.isLoading;
+
           return Center(
-            child: ListView.builder(
-              itemCount: mangasCount,
-              itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      mangas[index].attributes!.title!.en.toString(),
-                      style: const TextStyle(fontSize: 18.0),
-                    ),
+            child: viewModel.isLoading
+                ? CircularProgressIndicator()
+                : ListView.builder(
+                    itemCount: mangasCount,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailScreen(
+                                id: mangas[index].id!,
+                                title:
+                                    mangas[index].attributes!.title?.en
+                                        .toString() ??
+                                    "",
+                                description: mangas[index]
+                                    .attributes!
+                                    .description!
+                                    .en
+                                    .toString(),
+                              ),
+                            ),
+                          );
+                        },
+
+                        child: Card(
+                          margin: const EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              mangas[index].attributes!.title!.en.toString(),
+                              style: const TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           );
         },
       ),

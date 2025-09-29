@@ -1,4 +1,5 @@
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
+import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
 import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
 
 List<MangaData> fakeMangaList = [
@@ -164,5 +165,11 @@ class MangadexRepositoryFake implements MangadexRepository {
     await Future.delayed(Duration(seconds: 2));
     print(fakeMangaList);
     return fakeMangaList;
+  }
+
+  @override
+  Future<Map<String, Volume>> getMangaChapters(String mangaId) {
+    // TODO: implement getMangaChapters
+    throw UnimplementedError();
   }
 }

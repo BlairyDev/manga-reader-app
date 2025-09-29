@@ -1,4 +1,5 @@
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
+import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
 import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
 import 'package:manga_reader_app/data/services/mangadex_api_service.dart';
 
@@ -9,8 +10,6 @@ class MangadexRepositoryReal implements MangadexRepository {
   Future<List<MangaData>> getMangaSeries() async {
     try {
       final result = await _service.fetchMangaSeries();
-
-      print(result);
 
       final response = MangaResponse.fromJson(result);
 
@@ -26,6 +25,21 @@ class MangadexRepositoryReal implements MangadexRepository {
       List<MangaData> mangas = response.data;
 
       return mangas;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<Map<String, Volume>> getMangaChapters(String mangaId) async {
+    try {
+      final result = await _service.fetchMangaChapters(mangaId);
+
+      final response = MangaChaptersResponse.fromJson(result);
+      print("test detail chapter");
+      print(response.volumes);
+
+      return response.volumes;
     } catch (e) {
       throw Exception(e);
     }

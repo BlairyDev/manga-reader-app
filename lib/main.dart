@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
 import 'package:manga_reader_app/di/locator.dart';
 import 'package:manga_reader_app/view/home_screen.dart';
+import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,10 @@ void main() {
         ChangeNotifierProvider(
           create: (_) =>
               HomeViewModel(repository: locator<MangadexRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              DetailViewModel(repository: locator<MangadexRepository>()),
         ),
       ],
       child: MyApp(),
@@ -30,7 +35,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       home: HomeScreen(),
     );
   }
