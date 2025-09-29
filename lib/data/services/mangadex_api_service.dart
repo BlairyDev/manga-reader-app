@@ -16,7 +16,14 @@ class MangadexApiService {
 
   Future<Map<String, dynamic>> fetchMangaSeries() async {
     final String upcomingAPI =
-        "https://api.mangadex.org/manga?limit=10&includedTagsMode=AND&excludedTagsMode=OR&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&contentRating%5B%5D=erotica&order%5BlatestUploadedChapter%5D=desc";
+        "https://api.mangadex.org/manga?limit=10&includedTagsMode=AND&excludedTagsMode=OR&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&contentRating%5B%5D=erotica&order%5BlatestUploadedChapter%5D=desc&includes%5B%5D=cover_art";
+
+    return runAPI(upcomingAPI);
+  }
+
+  Future<Map<String, dynamic>> fetchMangaChapters(String mangaId) async {
+    final String upcomingAPI =
+        "https://api.mangadex.org/manga/$mangaId/aggregate?translatedLanguage%5B%5D=en";
 
     return runAPI(upcomingAPI);
   }
