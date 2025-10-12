@@ -1,3 +1,4 @@
+import 'package:manga_reader_app/data/model/manga/manga_chapter_image_list_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
 import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
@@ -170,6 +171,12 @@ class MangadexRepositoryFake implements MangadexRepository {
   @override
   Future<Map<String, Volume>> getMangaChapters(String mangaId) {
     // TODO: implement getMangaChapters
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<MangaChapterImageList> getChapterImageList(String chapterId) {
+    // TODO: implement getChapterImageList
     throw UnimplementedError();
   }
 }

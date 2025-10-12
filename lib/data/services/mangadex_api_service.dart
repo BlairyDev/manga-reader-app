@@ -27,4 +27,11 @@ class MangadexApiService {
 
     return runAPI(upcomingAPI);
   }
+
+  Future<Map<String, dynamic>> fetchChapterImageList(String chapterId) async {
+    final String upcomingAPI =
+        "https://api.mangadex.org/at-home/server/$chapterId";
+
+    return runAPI(upcomingAPI);
+  }
 }

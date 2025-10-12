@@ -1,3 +1,4 @@
+import 'package:manga_reader_app/data/model/manga/manga_chapter_image_list_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
 import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
@@ -13,15 +14,6 @@ class MangadexRepositoryReal implements MangadexRepository {
 
       final response = MangaResponse.fromJson(result);
 
-      print(response.data);
-      for (var manga in response.data) {
-        print("ID: ${manga.id}");
-        print("Title: ${manga.attributes!.title}");
-        print("Description: ${manga.attributes!.title}");
-        print("Status: ${manga.attributes!.title}");
-        print("---------------------------");
-      }
-
       List<MangaData> mangas = response.data;
 
       return mangas;
@@ -36,10 +28,21 @@ class MangadexRepositoryReal implements MangadexRepository {
       final result = await _service.fetchMangaChapters(mangaId);
 
       final response = MangaChaptersResponse.fromJson(result);
-      print("test detail chapter");
-      print(response.volumes);
 
       return response.volumes;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<MangaChapterImageList> getChapterImageList(String chapterId) async {
+    try {
+      final result = await _service.fetchChapterImageList(chapterId);
+
+      final response = MangaChapterImageList.fromJson(result);
+
+      return response;
     } catch (e) {
       throw Exception(e);
     }

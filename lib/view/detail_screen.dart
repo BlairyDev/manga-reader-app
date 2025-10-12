@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
+import 'package:manga_reader_app/view/chapter_screen.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +42,13 @@ class _DetailScreenState extends State<DetailScreen> {
               ? const Center(child: CircularProgressIndicator())
               : Column(
                   children: [
+                    CachedNetworkImage(
+                      imageUrl:
+                          "https://uploads.mangadex.org/covers/8f3e1818-a015-491d-bd81-3addc4d7d56a/26dd2770-d383-42e9-a42b-32765a4d99c8.png.256.jpg",
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                     Text(widget.title),
                     Text(widget.description),
 
@@ -59,11 +68,29 @@ class _DetailScreenState extends State<DetailScreen> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: chapters.length,
                                 itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      chapters[chapters.keys.elementAt(index)]!
-                                          .chapter
-                                          .toString(),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChapterScreen(
+                                            chapterId:
+                                                chapters[chapters.keys
+                                                        .elementAt(index)]!
+                                                    .id
+                                                    .toString(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        chapters[chapters.keys.elementAt(
+                                              index,
+                                            )]!
+                                            .chapter
+                                            .toString(),
+                                      ),
                                     ),
                                   );
                                 },

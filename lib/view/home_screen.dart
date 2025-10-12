@@ -31,8 +31,14 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(
             child: viewModel.isLoading
                 ? CircularProgressIndicator()
-                : ListView.builder(
+                : GridView.builder(
                     itemCount: mangasCount,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                      childAspectRatio: 1.0,
+                    ),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -59,9 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           margin: const EdgeInsets.all(8.0),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              mangas[index].attributes!.title!.en.toString(),
-                              style: const TextStyle(fontSize: 18.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  mangas[index].attributes!.title!.en
+                                      .toString(),
+                                  style: const TextStyle(fontSize: 18.0),
+                                ),
+                              ],
                             ),
                           ),
                         ),
