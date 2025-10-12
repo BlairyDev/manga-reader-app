@@ -47,4 +47,19 @@ class MangadexRepositoryReal implements MangadexRepository {
       throw Exception(e);
     }
   }
+
+  @override
+  Future<List<MangaData>> getSearchManga(String title) async {
+    try {
+      final result = await _service.fetchSearchManga(title);
+
+      final response = MangaResponse.fromJson(result);
+
+      List<MangaData> mangas = response.data;
+
+      return mangas;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

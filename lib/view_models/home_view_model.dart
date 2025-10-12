@@ -26,4 +26,17 @@ class HomeViewModel extends ChangeNotifier {
       _isLoading = false;
     }
   }
+
+  Future<void> loadSearchManga(String title) async {
+    _isLoading = true;
+    try {
+      _mangas = await repository.getSearchManga(title);
+      notifyListeners();
+    } catch (e) {
+      _mangas = [];
+      throw Exception(e);
+    } finally {
+      _isLoading = false;
+    }
+  }
 }

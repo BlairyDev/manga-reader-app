@@ -179,4 +179,10 @@ class MangadexRepositoryFake implements MangadexRepository {
     // TODO: implement getChapterImageList
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<MangaData>> getSearchManga(String title) {
+    // TODO: implement getSearchManga
+    throw UnimplementedError();
+  }
 }

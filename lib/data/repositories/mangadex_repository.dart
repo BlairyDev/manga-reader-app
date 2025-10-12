@@ -6,4 +6,5 @@ abstract class MangadexRepository {
   Future<List<MangaData>> getMangaSeries();
   Future<Map<String, Volume>> getMangaChapters(String mangaId);
   Future<MangaChapterImageList> getChapterImageList(String chapterId);
+  Future<List<MangaData>> getSearchManga(String title);
 }
