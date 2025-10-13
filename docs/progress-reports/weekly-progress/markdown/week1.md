@@ -6,14 +6,13 @@ paginate: true
 
 # Week 1 Progress Report
 
-**Sprint Duration:** 09/15 - 09/26
+**Sprint Duration:** 09/19
 
 ---
 
 ## Feature #1
 
-**Users can see a list of series**  
-**Deadline:** 09/26
+**Users can see a list of series**
 
 ---
 

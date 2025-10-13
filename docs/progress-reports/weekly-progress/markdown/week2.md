@@ -6,7 +6,7 @@ paginate: true
 
 # Week 1 Progress Report
 
-**Sprint 1:** Milestone 09/15 - 09/26
+**Sprint 1:** Milestone 09/26
 
 ---
 
@@ -55,3 +55,7 @@ pubspec.yaml | 1 +
 **Requirements Completed / Total:** 2 / 3
 
 **Burn-down Rate:** 66.67% completed, 33.33% remaining
+
+---
+
+**Issues** Took awhile on some features to complete
