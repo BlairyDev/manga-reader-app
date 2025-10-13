@@ -4,7 +4,7 @@ theme: default
 paginate: true
 ---
 
-# Week 1 Progress Report
+# Week 3 Progress Report
 
 **Sprint 1:** Milestone 09/15 - 09/26
 
