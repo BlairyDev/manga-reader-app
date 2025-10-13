@@ -6,7 +6,7 @@ paginate: true
 
 # Week 1 Progress Report
 
-**Sprint 1:** Milestone 10/03
+**Sprint 1:** Milestone 10/10
 
 ---
 
@@ -14,7 +14,7 @@ paginate: true
 
 ---
 
-## Feature # 4 Users can add new manga series to their library(locally in their device) (Deadline: 10/24)
+## Feature # 4 Users can add new manga series to their library(locally in their device)
 
 ---
 
