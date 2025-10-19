@@ -8,27 +8,37 @@ List<MangaData> fakeMangaList = [
     id: "1",
     type: "manga",
     attributes: MangaAttributes(
-      title: Title(en: "Naruto", zhRo: "火影忍者"),
+      title: Title(en: "Naruto", jaRo: "Naruto"),
       altTitles: [
         AltTitle(
-          ja: "ナルト",
-          en: "Naruto",
-          zhHk: "火影忍者",
-          fr: "Naruto",
-          pl: "Naruto",
-          ptBr: "Naruto",
-          ru: "Наруто",
-          es: "Naruto",
-          esLa: "Naruto",
-          vi: "Naruto",
           ko: "나루토",
-          jaRo: "Naruto",
+          koRo: "Naruto",
+          en: "Naruto",
+          fr: "Naruto",
+          es: "Naruto",
           zh: "火影忍者",
-          tr: "Naruto",
+          zhHk: "火影忍者",
+          pl: "Naruto",
+          ru: "Наруто",
+          ptBr: "Naruto",
+          ja: "ナルト",
+          kk: "Naruto",
           uk: "Наруто",
-          zhRo: "火影忍者",
-          id: "naruto-id",
+          de: "Naruto",
+          tr: "Naruto",
+          tl: "Naruto",
+          ms: "Naruto",
           th: "นารูโตะ",
+          it: "Naruto",
+          vi: "Naruto",
+          pt: "Naruto",
+          bg: "Naruto",
+          fa: "ناروتو",
+          ar: "ناروتو",
+          ka: "Naruto",
+          esLa: "Naruto",
+          zhRo: "火影忍者",
+          jaRo: "Naruto",
         ),
       ],
       description: PurpleDescription(
@@ -44,6 +54,12 @@ List<MangaData> fakeMangaList = [
         id: "description-id",
         uk: "Молодий ніндзя прагне стати найсильнішим.",
         tr: "Genç bir ninja en güçlü olmak için çabalıyor.",
+        zh: "年轻的忍者努力成为最强者。",
+        zhHk: "年輕的忍者努力成為最強者。",
+        de: "Ein junger Ninja strebt danach, der Stärkste zu sein.",
+        th: "นินจาหนุ่มพยายามที่จะเป็นผู้แข็งแกร่งที่สุด.",
+        ko: "젊은 닌자가 가장 강해지려고 노력한다.",
+        pt: "Um jovem ninja tenta ser o mais forte.",
       ),
       isLocked: false,
       links: Links(
@@ -78,34 +94,80 @@ List<MangaData> fakeMangaList = [
       latestUploadedChapter: "700",
     ),
     relationships: [
-      Relationship(id: "2", type: "author", related: "Masashi Kishimoto"),
+      Relationship(
+        id: "101",
+        type: "author",
+        related: "Masashi Kishimoto",
+        attributes: RelationshipAttributes(
+          name: "Masashi Kishimoto",
+          imageUrl: null,
+          biography: Biography(
+            en: "Japanese manga artist best known for Naruto.",
+            es: "Artista de manga japonés conocido por Naruto.",
+            esLa: "Artista de manga japonés conocido por Naruto.",
+            ptBr: "Artista de mangá japonês conhecido por Naruto.",
+          ),
+          twitter: "https://twitter.com/kishimotom",
+          pixiv: null,
+          melonBook: null,
+          fanBox: null,
+          booth: "",
+          namicomi: null,
+          nicoVideo: null,
+          skeb: null,
+          fantia: null,
+          tumblr: null,
+          youtube: null,
+          weibo: null,
+          naver: null,
+          website: "https://example.com",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          version: 1,
+          description: "Author of Naruto.",
+          volume: null,
+          fileName: null,
+          locale: "ja",
+        ),
+      ),
     ],
   ),
+  // ---------------------------------------------------------
   MangaData(
     id: "2",
     type: "manga",
     attributes: MangaAttributes(
-      title: Title(en: "One Piece", zhRo: "海賊王"),
+      title: Title(en: "One Piece", jaRo: "One Piece"),
       altTitles: [
         AltTitle(
-          ja: "ワンピース",
-          en: "One Piece",
-          zhHk: "海賊王",
-          fr: "One Piece",
-          pl: "One Piece",
-          ptBr: "One Piece",
-          ru: "Ван Пис",
-          es: "One Piece",
-          esLa: "One Piece",
-          vi: "One Piece",
           ko: "원피스",
-          jaRo: "One Piece",
+          koRo: "One Piece",
+          en: "One Piece",
+          fr: "One Piece",
+          es: "One Piece",
           zh: "海賊王",
-          tr: "One Piece",
+          zhHk: "海賊王",
+          pl: "One Piece",
+          ru: "Ван Пис",
+          ptBr: "One Piece",
+          ja: "ワンピース",
+          kk: "One Piece",
           uk: "Ван Піс",
-          zhRo: "海賊王",
-          id: "one-piece-id",
+          de: "One Piece",
+          tr: "One Piece",
+          tl: "One Piece",
+          ms: "One Piece",
           th: "วันพีช",
+          it: "One Piece",
+          vi: "One Piece",
+          pt: "One Piece",
+          bg: "One Piece",
+          fa: "وان پیس",
+          ar: "ون بيس",
+          ka: "One Piece",
+          esLa: "One Piece",
+          zhRo: "海賊王",
+          jaRo: "One Piece",
         ),
       ],
       description: PurpleDescription(
@@ -121,6 +183,12 @@ List<MangaData> fakeMangaList = [
         id: "description-id",
         uk: "Подорож пірата за найбільшим скарбом.",
         tr: "Bir korsanın en büyük hazinenin peşinden gitmesi.",
+        zh: "海賊寻找最伟大宝藏的故事。",
+        zhHk: "海賊尋找最偉大寶藏的故事。",
+        de: "Die Suche eines Piraten nach dem größten Schatz.",
+        th: "การผจญภัยของโจรสลัดเพื่อค้นหาสมบัติที่ยิ่งใหญ่ที่สุด",
+        ko: "해적이 가장 위대한 보물을 찾는 이야기.",
+        pt: "A jornada de um pirata em busca do maior tesouro.",
       ),
       isLocked: false,
       links: Links(
@@ -155,7 +223,42 @@ List<MangaData> fakeMangaList = [
       latestUploadedChapter: "1050",
     ),
     relationships: [
-      Relationship(id: "2", type: "author", related: "Eiichiro Oda"),
+      Relationship(
+        id: "102",
+        type: "author",
+        related: "Eiichiro Oda",
+        attributes: RelationshipAttributes(
+          name: "Eiichiro Oda",
+          imageUrl: null,
+          biography: Biography(
+            en: "Japanese manga artist known for creating One Piece.",
+            es: "Artista de manga japonés conocido por crear One Piece.",
+            esLa: "Artista de manga japonés conocido por crear One Piece.",
+            ptBr: "Artista de mangá japonês conhecido por criar One Piece.",
+          ),
+          twitter: "https://twitter.com/eiichirooda",
+          pixiv: null,
+          melonBook: null,
+          fanBox: null,
+          booth: "",
+          namicomi: null,
+          nicoVideo: null,
+          skeb: null,
+          fantia: null,
+          tumblr: null,
+          youtube: null,
+          weibo: null,
+          naver: null,
+          website: "https://example.com",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          version: 1,
+          description: "Author of One Piece.",
+          volume: null,
+          fileName: null,
+          locale: "ja",
+        ),
+      ),
     ],
   ),
 ];
@@ -164,25 +267,78 @@ class MangadexRepositoryFake implements MangadexRepository {
   @override
   Future<List<MangaData>> getMangaSeries() async {
     await Future.delayed(Duration(seconds: 2));
-    print(fakeMangaList);
     return fakeMangaList;
   }
 
   @override
-  Future<Map<String, Volume>> getMangaChapters(String mangaId) {
-    // TODO: implement getMangaChapters
-    throw UnimplementedError();
+  Future<Map<String, Volume>> getMangaChapters(String mangaId) async {
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final fakeJson = {
+      "result": "ok",
+      "volumes": {
+        "1": {
+          "volume": "1",
+          "count": 3,
+          "chapters": {
+            "1": {
+              "chapter": "1",
+              "id": "ch_001",
+              "isUnavailable": false,
+              "others": [],
+              "count": 1,
+            },
+            "2": {
+              "chapter": "2",
+              "id": "ch_002",
+              "isUnavailable": false,
+              "others": ["ch_002a"],
+              "count": 2,
+            },
+            "3": {
+              "chapter": "3",
+              "id": "ch_003",
+              "isUnavailable": false,
+              "others": [],
+              "count": 3,
+            },
+          },
+        },
+        "2": {
+          "volume": "2",
+          "count": 2,
+          "chapters": {
+            "4": {
+              "chapter": "4",
+              "id": "ch_004",
+              "isUnavailable": false,
+              "others": [],
+              "count": 4,
+            },
+            "5": {
+              "chapter": "5",
+              "id": "ch_005",
+              "isUnavailable": true,
+              "others": [],
+              "count": 5,
+            },
+          },
+        },
+      },
+    };
+
+    final response = MangaChaptersResponse.fromJson(fakeJson);
+    return response.volumes;
   }
 
   @override
   Future<MangaChapterImageList> getChapterImageList(String chapterId) {
-    // TODO: implement getChapterImageList
     throw UnimplementedError();
   }
 
   @override
-  Future<List<MangaData>> getSearchManga(String title) {
-    // TODO: implement getSearchManga
-    throw UnimplementedError();
+  Future<List<MangaData>> getSearchManga(String title) async {
+    await Future.delayed(Duration(seconds: 2));
+    return fakeMangaList;
   }
 }

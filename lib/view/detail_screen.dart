@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
+import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/view/chapter_screen.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:provider/provider.dart';
@@ -11,17 +13,27 @@ class DetailScreen extends StatefulWidget {
     required this.id,
     required this.title,
     required this.description,
+    required this.status,
+    required this.authors,
+    required this.artists,
+    required this.covertArtUrl,
   });
 
   final String id;
   final String title;
   final String description;
+  final String status;
+  final List<Relationship> authors;
+  final List<Relationship> artists;
+  final String covertArtUrl;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  bool isFavorite = false;
+
   @override
   void initState() {
     Provider.of<DetailViewModel>(
@@ -33,77 +45,218 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authorNames = widget.authors
+        .where((r) => r.type == "author")
+        .map((r) => r.attributes?.name ?? "")
+        .join(", ");
+
+    final artistNames = widget.artists
+        .where((r) => r.type == "artist")
+        .map((r) => r.attributes?.name ?? "")
+        .join(", ");
+
     return Scaffold(
+      appBar: AppBar(title: Text("")),
       body: Consumer<DetailViewModel>(
         builder: (context, viewModel, child) {
           Map<String, Volume> mangaVolumes = viewModel.mangaChapters;
 
           return viewModel.isLoading
               ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl:
-                          "https://uploads.mangadex.org/covers/8f3e1818-a015-491d-bd81-3addc4d7d56a/26dd2770-d383-42e9-a42b-32765a4d99c8.png.256.jpg",
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                    Text(widget.title),
-                    Text(widget.description),
+              : SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 300,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                      width: 150,
+                                      fit: BoxFit.cover,
+                                      imageUrl: widget.covertArtUrl,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          CachedNetworkImage(
+                                            imageUrl:
+                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
+                                          ),
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isFavorite = !isFavorite;
+                                          });
+                                        },
+                                        child: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: isFavorite
+                                              ? Colors.red
+                                              : Colors.grey,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        isFavorite
+                                            ? "In Library"
+                                            : "Add to Library",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.all(12.0),
+                                child: SizedBox(
+                                  height: 280,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
 
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: mangaVolumes.length,
-                        itemBuilder: (context, index) {
-                          Map<String, Chapter> chapters =
-                              mangaVolumes[mangaVolumes.keys.elementAt(index)]!
-                                  .chapters;
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              widget.title,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            SizedBox(height: 4),
+                                            ExpandableText(
+                                              widget.description,
+                                              expandText: "Show More",
+                                              collapseText: "Show Less",
+                                              maxLines: 4,
+                                              linkColor: Colors.blue,
+                                            ),
+                                            SizedBox(height: 12),
+                                            Text(
+                                              "Status: ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(widget.status.capitalize()),
 
-                          return ExpansionTile(
-                            title: Text("Volume $index"),
-                            children: [
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: chapters.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ChapterScreen(
-                                            chapterId:
-                                                chapters[chapters.keys
-                                                        .elementAt(index)]!
-                                                    .id
-                                                    .toString(),
+                                            SizedBox(height: 8),
+                                            Text(
+                                              "Authors: ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(authorNames),
+                                            SizedBox(height: 8),
+                                            Text(
+                                              "Artists: ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(artistNames),
+                                          ],
+                                        ),
+                                        SizedBox(height: 20),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: mangaVolumes.length,
+                            itemBuilder: (context, index) {
+                              Map<String, Chapter> chapters =
+                                  mangaVolumes[mangaVolumes.keys.elementAt(
+                                        index,
+                                      )]!
+                                      .chapters;
+
+                              return ExpansionTile(
+                                title: Text("Volume $index"),
+                                children: [
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: chapters.length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChapterScreen(
+                                                    chapterId:
+                                                        chapters[chapters.keys
+                                                                .elementAt(
+                                                                  index,
+                                                                )]!
+                                                            .id
+                                                            .toString(),
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                        child: ListTile(
+                                          title: Text(
+                                            chapters[chapters.keys.elementAt(
+                                                  index,
+                                                )]!
+                                                .chapter
+                                                .toString(),
                                           ),
                                         ),
                                       );
                                     },
-                                    child: ListTile(
-                                      title: Text(
-                                        chapters[chapters.keys.elementAt(
-                                              index,
-                                            )]!
-                                            .chapter
-                                            .toString(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 );
         },
       ),
     );
+  }
+}
+
+extension StringExtensions on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
   }
 }

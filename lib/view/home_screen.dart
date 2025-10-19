@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/view/detail_screen.dart';
@@ -85,55 +86,109 @@ class _HomeScreenState extends State<HomeScreen> {
           bool isLoading = viewModel.isLoading;
 
           return Center(
-            child: viewModel.isLoading
+            child: isLoading
                 ? CircularProgressIndicator()
-                : GridView.builder(
-                    itemCount: mangasCount,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      childAspectRatio: 1.0,
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                id: mangas[index].id!,
-                                title:
-                                    mangas[index].attributes!.title?.en
-                                        .toString() ??
-                                    "",
-                                description: mangas[index]
-                                    .attributes!
-                                    .description!
-                                    .en
-                                    .toString(),
-                              ),
-                            ),
-                          );
-                        },
+                : Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: GridView.builder(
+                      itemCount: mangasCount,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 10.0,
+                        childAspectRatio: 0.8,
+                      ),
+                      itemBuilder: (context, index) {
+                        String? fileName = mangas[index].relationships
+                            .firstWhere((r) => r.type == "cover_art")
+                            .attributes
+                            ?.fileName
+                            .toString();
 
-                        child: Card(
-                          margin: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  mangas[index].attributes!.title!.en
+                        final coverArtUrl = fileName != null
+                            ? "https://uploads.mangadex.org/covers/${mangas[index].id}/$fileName"
+                            : null;
+
+                        List<Relationship> authors = mangas[index].relationships
+                            .where((r) => r.type == "author")
+                            .toList();
+
+                        List<Relationship> artists = mangas[index].relationships
+                            .where((r) => r.type == "artist")
+                            .toList();
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                  id: mangas[index].id!,
+                                  title:
+                                      mangas[index].attributes!.title!.en ??
+                                      mangas[index].attributes!.title!.jaRo
+                                          .toString(),
+                                  description: mangas[index]
+                                      .attributes!
+                                      .description!
+                                      .en
                                       .toString(),
-                                  style: const TextStyle(fontSize: 18.0),
+                                  status:
+                                      mangas[index].attributes!.status ?? "",
+                                  authors: authors,
+                                  artists: artists,
+                                  covertArtUrl: coverArtUrl.toString(),
+                                ),
+                              ),
+                            );
+                          },
+
+                          child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            child: Stack(
+                              children: [
+                                CachedNetworkImage(
+                                  width: 300,
+                                  imageUrl: coverArtUrl.toString(),
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topCenter,
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
+                                      ),
+                                ),
+
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    padding: EdgeInsets.all(5.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      mangas[index].attributes!.title!.en ??
+                                          mangas[index].attributes!.title!.jaRo
+                                              .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.white,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
           );
         },

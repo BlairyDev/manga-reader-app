@@ -190,149 +190,213 @@ class MangaAttributes {
 
 class AltTitle {
   AltTitle({
-    required this.ja,
-    required this.en,
-    required this.zhHk,
-    required this.fr,
-    required this.pl,
-    required this.ptBr,
-    required this.ru,
-    required this.es,
-    required this.esLa,
-    required this.vi,
     required this.ko,
-    required this.jaRo,
+    required this.koRo,
+    required this.en,
+    required this.fr,
+    required this.es,
     required this.zh,
-    required this.tr,
+    required this.zhHk,
+    required this.pl,
+    required this.ru,
+    required this.ptBr,
+    required this.ja,
+    required this.kk,
     required this.uk,
-    required this.zhRo,
-    required this.id,
+    required this.de,
+    required this.tr,
+    required this.tl,
+    required this.ms,
     required this.th,
+    required this.it,
+    required this.vi,
+    required this.pt,
+    required this.bg,
+    required this.fa,
+    required this.ar,
+    required this.ka,
+    required this.esLa,
+    required this.zhRo,
+    required this.jaRo,
   });
 
-  final String? ja;
-  final String? en;
-  final String? zhHk;
-  final String? fr;
-  final String? pl;
-  final String? ptBr;
-  final String? ru;
-  final String? es;
-  final String? esLa;
-  final String? vi;
   final String? ko;
-  final String? jaRo;
+  final String? koRo;
+  final String? en;
+  final String? fr;
+  final String? es;
   final String? zh;
-  final String? tr;
+  final String? zhHk;
+  final String? pl;
+  final String? ru;
+  final String? ptBr;
+  final String? ja;
+  final String? kk;
   final String? uk;
-  final String? zhRo;
-  final String? id;
+  final String? de;
+  final String? tr;
+  final String? tl;
+  final String? ms;
   final String? th;
+  final String? it;
+  final String? vi;
+  final String? pt;
+  final String? bg;
+  final String? fa;
+  final String? ar;
+  final String? ka;
+  final String? esLa;
+  final String? zhRo;
+  final String? jaRo;
 
   factory AltTitle.fromJson(Map<String, dynamic> json) {
     return AltTitle(
-      ja: json["ja"],
-      en: json["en"],
-      zhHk: json["zh-hk"],
-      fr: json["fr"],
-      pl: json["pl"],
-      ptBr: json["pt-br"],
-      ru: json["ru"],
-      es: json["es"],
-      esLa: json["es-la"],
-      vi: json["vi"],
       ko: json["ko"],
-      jaRo: json["ja-ro"],
+      koRo: json["ko-ro"],
+      en: json["en"],
+      fr: json["fr"],
+      es: json["es"],
       zh: json["zh"],
-      tr: json["tr"],
+      zhHk: json["zh-hk"],
+      pl: json["pl"],
+      ru: json["ru"],
+      ptBr: json["pt-br"],
+      ja: json["ja"],
+      kk: json["kk"],
       uk: json["uk"],
-      zhRo: json["zh-ro"],
-      id: json["id"],
+      de: json["de"],
+      tr: json["tr"],
+      tl: json["tl"],
+      ms: json["ms"],
       th: json["th"],
+      it: json["it"],
+      vi: json["vi"],
+      pt: json["pt"],
+      bg: json["bg"],
+      fa: json["fa"],
+      ar: json["ar"],
+      ka: json["ka"],
+      esLa: json["es-la"],
+      zhRo: json["zh-ro"],
+      jaRo: json["ja-ro"],
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "ja": ja,
-    "en": en,
-    "zh-hk": zhHk,
-    "fr": fr,
-    "pl": pl,
-    "pt-br": ptBr,
-    "ru": ru,
-    "es": es,
-    "es-la": esLa,
-    "vi": vi,
     "ko": ko,
-    "ja-ro": jaRo,
+    "ko-ro": koRo,
+    "en": en,
+    "fr": fr,
+    "es": es,
     "zh": zh,
-    "tr": tr,
+    "zh-hk": zhHk,
+    "pl": pl,
+    "ru": ru,
+    "pt-br": ptBr,
+    "ja": ja,
+    "kk": kk,
     "uk": uk,
-    "zh-ro": zhRo,
-    "id": id,
+    "de": de,
+    "tr": tr,
+    "tl": tl,
+    "ms": ms,
     "th": th,
+    "it": it,
+    "vi": vi,
+    "pt": pt,
+    "bg": bg,
+    "fa": fa,
+    "ar": ar,
+    "ka": ka,
+    "es-la": esLa,
+    "zh-ro": zhRo,
+    "ja-ro": jaRo,
   };
 }
 
 class PurpleDescription {
   PurpleDescription({
     required this.en,
-    required this.ja,
+    required this.ko,
+    required this.zh,
+    required this.zhHk,
+    required this.de,
     required this.es,
     required this.fr,
+    required this.id,
+    required this.ja,
+    required this.th,
+    required this.ptBr,
     required this.pl,
     required this.ru,
-    required this.vi,
-    required this.esLa,
-    required this.ptBr,
-    required this.id,
     required this.uk,
+    required this.vi,
+    required this.pt,
     required this.tr,
+    required this.esLa,
   });
 
   final String? en;
-  final String? ja;
+  final String? ko;
+  final String? zh;
+  final String? zhHk;
+  final String? de;
   final String? es;
   final String? fr;
+  final String? id;
+  final String? ja;
+  final String? th;
+  final String? ptBr;
   final String? pl;
   final String? ru;
-  final String? vi;
-  final String? esLa;
-  final String? ptBr;
-  final String? id;
   final String? uk;
+  final String? vi;
+  final String? pt;
   final String? tr;
+  final String? esLa;
 
   factory PurpleDescription.fromJson(Map<String, dynamic> json) {
     return PurpleDescription(
       en: json["en"],
-      ja: json["ja"],
+      ko: json["ko"],
+      zh: json["zh"],
+      zhHk: json["zh-hk"],
+      de: json["de"],
       es: json["es"],
       fr: json["fr"],
+      id: json["id"],
+      ja: json["ja"],
+      th: json["th"],
+      ptBr: json["pt-br"],
       pl: json["pl"],
       ru: json["ru"],
-      vi: json["vi"],
-      esLa: json["es-la"],
-      ptBr: json["pt-br"],
-      id: json["id"],
       uk: json["uk"],
+      vi: json["vi"],
+      pt: json["pt"],
       tr: json["tr"],
+      esLa: json["es-la"],
     );
   }
 
   Map<String, dynamic> toJson() => {
     "en": en,
-    "ja": ja,
+    "ko": ko,
+    "zh": zh,
+    "zh-hk": zhHk,
+    "de": de,
     "es": es,
     "fr": fr,
+    "id": id,
+    "ja": ja,
+    "th": th,
+    "pt-br": ptBr,
     "pl": pl,
     "ru": ru,
-    "vi": vi,
-    "es-la": esLa,
-    "pt-br": ptBr,
-    "id": id,
     "uk": uk,
+    "vi": vi,
+    "pt": pt,
     "tr": tr,
+    "es-la": esLa,
   };
 }
 
@@ -340,61 +404,61 @@ class Links {
   Links({
     required this.al,
     required this.ap,
-    required this.bw,
     required this.mu,
-    required this.amz,
-    required this.ebj,
+    required this.nu,
     required this.mal,
     required this.raw,
-    required this.kt,
-    required this.cdj,
     required this.engtl,
-    required this.nu,
+    required this.kt,
+    required this.bw,
+    required this.amz,
+    required this.cdj,
+    required this.ebj,
   });
 
   final String? al;
   final String? ap;
-  final String? bw;
   final String? mu;
-  final String? amz;
-  final String? ebj;
+  final String? nu;
   final String? mal;
   final String? raw;
-  final String? kt;
-  final String? cdj;
   final String? engtl;
-  final String? nu;
+  final String? kt;
+  final String? bw;
+  final String? amz;
+  final String? cdj;
+  final String? ebj;
 
   factory Links.fromJson(Map<String, dynamic> json) {
     return Links(
       al: json["al"],
       ap: json["ap"],
-      bw: json["bw"],
       mu: json["mu"],
-      amz: json["amz"],
-      ebj: json["ebj"],
+      nu: json["nu"],
       mal: json["mal"],
       raw: json["raw"],
-      kt: json["kt"],
-      cdj: json["cdj"],
       engtl: json["engtl"],
-      nu: json["nu"],
+      kt: json["kt"],
+      bw: json["bw"],
+      amz: json["amz"],
+      cdj: json["cdj"],
+      ebj: json["ebj"],
     );
   }
 
   Map<String, dynamic> toJson() => {
     "al": al,
     "ap": ap,
-    "bw": bw,
     "mu": mu,
-    "amz": amz,
-    "ebj": ebj,
+    "nu": nu,
     "mal": mal,
     "raw": raw,
-    "kt": kt,
-    "cdj": cdj,
     "engtl": engtl,
-    "nu": nu,
+    "kt": kt,
+    "bw": bw,
+    "amz": amz,
+    "cdj": cdj,
+    "ebj": ebj,
   };
 }
 
@@ -440,14 +504,14 @@ class TagAttributes {
     required this.version,
   });
 
-  final Name? name;
+  final Title? name;
   final FluffyDescription? description;
   final String? group;
   final int? version;
 
   factory TagAttributes.fromJson(Map<String, dynamic> json) {
     return TagAttributes(
-      name: json["name"] == null ? null : Name.fromJson(json["name"]),
+      name: json["name"] == null ? null : Title.fromJson(json["name"]),
       description: json["description"] == null
           ? null
           : FluffyDescription.fromJson(json["description"]),
@@ -475,45 +539,189 @@ class FluffyDescription {
   Map<String, dynamic> toJson() => {};
 }
 
-class Name {
-  Name({required this.en});
+class Title {
+  Title({required this.en, required this.jaRo});
 
   final String? en;
+  final String? jaRo;
 
-  factory Name.fromJson(Map<String, dynamic> json) {
-    return Name(en: json["en"]);
+  factory Title.fromJson(Map<String, dynamic> json) {
+    return Title(en: json["en"], jaRo: json["ja-ro"]);
   }
 
   Map<String, dynamic> toJson() => {"en": en};
 }
 
-class Title {
-  Title({required this.en, required this.zhRo});
-
-  final String? en;
-  final String? zhRo;
-
-  factory Title.fromJson(Map<String, dynamic> json) {
-    return Title(en: json["en"], zhRo: json["zh-ro"]);
-  }
-
-  Map<String, dynamic> toJson() => {"en": en, "zh-ro": zhRo};
-}
-
 class Relationship {
-  Relationship({required this.id, required this.type, required this.related});
+  Relationship({
+    required this.id,
+    required this.type,
+    required this.attributes,
+    required this.related,
+  });
 
   final String? id;
   final String? type;
+  final RelationshipAttributes? attributes;
   final String? related;
 
   factory Relationship.fromJson(Map<String, dynamic> json) {
     return Relationship(
       id: json["id"],
       type: json["type"],
+      attributes: json["attributes"] == null
+          ? null
+          : RelationshipAttributes.fromJson(json["attributes"]),
       related: json["related"],
     );
   }
 
-  Map<String, dynamic> toJson() => {"id": id, "type": type, "related": related};
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "type": type,
+    "attributes": attributes?.toJson(),
+    "related": related,
+  };
+}
+
+class RelationshipAttributes {
+  RelationshipAttributes({
+    required this.name,
+    required this.imageUrl,
+    required this.biography,
+    required this.twitter,
+    required this.pixiv,
+    required this.melonBook,
+    required this.fanBox,
+    required this.booth,
+    required this.namicomi,
+    required this.nicoVideo,
+    required this.skeb,
+    required this.fantia,
+    required this.tumblr,
+    required this.youtube,
+    required this.weibo,
+    required this.naver,
+    required this.website,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.version,
+    required this.description,
+    required this.volume,
+    required this.fileName,
+    required this.locale,
+  });
+
+  final String? name;
+  final dynamic imageUrl;
+  final Biography? biography;
+  final String? twitter;
+  final String? pixiv;
+  final dynamic melonBook;
+  final dynamic fanBox;
+  final String? booth;
+  final dynamic namicomi;
+  final dynamic nicoVideo;
+  final dynamic skeb;
+  final dynamic fantia;
+  final dynamic tumblr;
+  final dynamic youtube;
+  final dynamic weibo;
+  final String? naver;
+  final String? website;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? version;
+  final String? description;
+  final String? volume;
+  final String? fileName;
+  final String? locale;
+
+  factory RelationshipAttributes.fromJson(Map<String, dynamic> json) {
+    return RelationshipAttributes(
+      name: json["name"],
+      imageUrl: json["imageUrl"],
+      biography: json["biography"] == null
+          ? null
+          : Biography.fromJson(json["biography"]),
+      twitter: json["twitter"],
+      pixiv: json["pixiv"],
+      melonBook: json["melonBook"],
+      fanBox: json["fanBox"],
+      booth: json["booth"],
+      namicomi: json["namicomi"],
+      nicoVideo: json["nicoVideo"],
+      skeb: json["skeb"],
+      fantia: json["fantia"],
+      tumblr: json["tumblr"],
+      youtube: json["youtube"],
+      weibo: json["weibo"],
+      naver: json["naver"],
+      website: json["website"],
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+      version: json["version"],
+      description: json["description"],
+      volume: json["volume"],
+      fileName: json["fileName"],
+      locale: json["locale"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "imageUrl": imageUrl,
+    "biography": biography?.toJson(),
+    "twitter": twitter,
+    "pixiv": pixiv,
+    "melonBook": melonBook,
+    "fanBox": fanBox,
+    "booth": booth,
+    "namicomi": namicomi,
+    "nicoVideo": nicoVideo,
+    "skeb": skeb,
+    "fantia": fantia,
+    "tumblr": tumblr,
+    "youtube": youtube,
+    "weibo": weibo,
+    "naver": naver,
+    "website": website,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "version": version,
+    "description": description,
+    "volume": volume,
+    "fileName": fileName,
+    "locale": locale,
+  };
+}
+
+class Biography {
+  Biography({
+    required this.en,
+    required this.es,
+    required this.esLa,
+    required this.ptBr,
+  });
+
+  final String? en;
+  final String? es;
+  final String? esLa;
+  final String? ptBr;
+
+  factory Biography.fromJson(Map<String, dynamic> json) {
+    return Biography(
+      en: json["en"],
+      es: json["es"],
+      esLa: json["es-la"],
+      ptBr: json["pt-br"],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "en": en,
+    "es": es,
+    "es-la": esLa,
+    "pt-br": ptBr,
+  };
 }
