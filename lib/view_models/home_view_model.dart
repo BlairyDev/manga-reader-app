@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
-import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
+import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final MangadexRepository repository;
@@ -17,7 +17,6 @@ class HomeViewModel extends ChangeNotifier {
     _isLoading = true;
     try {
       _mangas = await repository.getMangaSeries();
-      print("${_mangas[0].attributes!.title} test");
       notifyListeners();
     } catch (e) {
       _mangas = [];

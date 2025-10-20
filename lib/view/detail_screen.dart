@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_reader_app/data/model/database/manga.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
-import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/view/chapter_screen.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:provider/provider.dart';
@@ -16,26 +16,29 @@ class DetailScreen extends StatefulWidget {
     required this.status,
     required this.authors,
     required this.artists,
-    required this.covertArtUrl,
+    required this.coverArtUrl,
   });
 
   final String id;
   final String title;
   final String description;
   final String status;
-  final List<Relationship> authors;
-  final List<Relationship> artists;
-  final String covertArtUrl;
+  final List<String> authors;
+  final List<String> artists;
+  final String coverArtUrl;
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool isFavorite = false;
-
   @override
   void initState() {
+    Provider.of<DetailViewModel>(
+      context,
+      listen: false,
+    ).checkInLibrary(widget.id);
+
     Provider.of<DetailViewModel>(
       context,
       listen: false,
@@ -45,21 +48,17 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authorNames = widget.authors
-        .where((r) => r.type == "author")
-        .map((r) => r.attributes?.name ?? "")
-        .join(", ");
+    final authorNames = widget.authors.join(", ");
 
-    final artistNames = widget.artists
-        .where((r) => r.type == "artist")
-        .map((r) => r.attributes?.name ?? "")
-        .join(", ");
+    final artistNames = widget.artists.join(", ");
 
     return Scaffold(
       appBar: AppBar(title: Text("")),
       body: Consumer<DetailViewModel>(
         builder: (context, viewModel, child) {
           Map<String, Volume> mangaVolumes = viewModel.mangaChapters;
+
+          bool isFavorite = viewModel.inLibrary;
 
           return viewModel.isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -83,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     child: CachedNetworkImage(
                                       width: 150,
                                       fit: BoxFit.cover,
-                                      imageUrl: widget.covertArtUrl,
+                                      imageUrl: widget.coverArtUrl,
                                       placeholder: (context, url) =>
                                           CircularProgressIndicator(),
                                       errorWidget: (context, url, error) =>
@@ -98,9 +97,30 @@ class _DetailScreenState extends State<DetailScreen> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          setState(() {
-                                            isFavorite = !isFavorite;
-                                          });
+                                          List<String> authors = authorNames
+                                              .split(', ')
+                                              .map((s) => s.trim())
+                                              .toList();
+                                          List<String> artists = artistNames
+                                              .split(', ')
+                                              .map((s) => s.trim())
+                                              .toList();
+
+                                          if (isFavorite) {
+                                            viewModel.removeManga(widget.id);
+                                          } else {
+                                            viewModel.insertManga(
+                                              Manga(
+                                                mangaId: widget.id,
+                                                title: widget.title,
+                                                description: widget.description,
+                                                authors: authors,
+                                                artists: artists,
+                                                coverArtUrl: widget.coverArtUrl,
+                                                status: widget.status,
+                                              ),
+                                            );
+                                          }
                                         },
                                         child: Icon(
                                           isFavorite

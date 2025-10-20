@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
+import 'package:manga_reader_app/data/repositories/data_repository/data_repository.dart';
+import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 import 'package:manga_reader_app/di/locator.dart';
-import 'package:manga_reader_app/view/home_screen.dart';
+import 'package:manga_reader_app/navigation.dart';
 import 'package:manga_reader_app/view_models/chapter_view_model.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
+import 'package:manga_reader_app/view_models/library_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,12 +19,18 @@ void main() {
               HomeViewModel(repository: locator<MangadexRepository>()),
         ),
         ChangeNotifierProvider(
-          create: (_) =>
-              DetailViewModel(repository: locator<MangadexRepository>()),
+          create: (_) => DetailViewModel(
+            mangaRepository: locator<MangadexRepository>(),
+            dataRepository: locator<DataRepository>(),
+          ),
         ),
         ChangeNotifierProvider(
           create: (_) =>
               ChapterViewModel(repository: locator<MangadexRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              LibraryViewModel(dataRepository: locator<DataRepository>()),
         ),
       ],
       child: MyApp(),
@@ -40,7 +48,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeScreen(),
+      home: Navigation(),
     );
   }
 }

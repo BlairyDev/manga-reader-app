@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapter_image_list_response.dart';
-import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
+import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 
 class ChapterViewModel extends ChangeNotifier {
   final MangadexRepository repository;

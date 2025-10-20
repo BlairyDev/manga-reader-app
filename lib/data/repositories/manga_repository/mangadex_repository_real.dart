@@ -1,7 +1,7 @@
 import 'package:manga_reader_app/data/model/manga/manga_chapter_image_list_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
-import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
+import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 import 'package:manga_reader_app/data/services/mangadex_api_service.dart';
 
 class MangadexRepositoryReal implements MangadexRepository {

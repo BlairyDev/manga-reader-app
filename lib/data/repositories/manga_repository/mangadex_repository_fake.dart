@@ -1,14 +1,14 @@
 import 'package:manga_reader_app/data/model/manga/manga_chapter_image_list_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
-import 'package:manga_reader_app/data/repositories/mangadex_repository.dart';
+import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 
 List<MangaData> fakeMangaList = [
   MangaData(
     id: "1",
     type: "manga",
     attributes: MangaAttributes(
-      title: Title(en: "Naruto", jaRo: "Naruto"),
+      title: Title(en: "Naruto", jaRo: "Naruto", ja: "Naruto"),
       altTitles: [
         AltTitle(
           ko: "나루토",
@@ -137,7 +137,7 @@ List<MangaData> fakeMangaList = [
     id: "2",
     type: "manga",
     attributes: MangaAttributes(
-      title: Title(en: "One Piece", jaRo: "One Piece"),
+      title: Title(en: "One Piece", jaRo: "One Piece", ja: "One Piece"),
       altTitles: [
         AltTitle(
           ko: "원피스",

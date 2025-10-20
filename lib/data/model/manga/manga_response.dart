@@ -540,13 +540,14 @@ class FluffyDescription {
 }
 
 class Title {
-  Title({required this.en, required this.jaRo});
+  Title({required this.en, required this.jaRo, required this.ja});
 
   final String? en;
   final String? jaRo;
+  final String? ja;
 
   factory Title.fromJson(Map<String, dynamic> json) {
-    return Title(en: json["en"], jaRo: json["ja-ro"]);
+    return Title(en: json["en"], jaRo: json["ja-ro"], ja: json["ja"]);
   }
 
   Map<String, dynamic> toJson() => {"en": en};
