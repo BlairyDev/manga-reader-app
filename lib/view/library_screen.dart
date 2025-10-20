@@ -65,18 +65,28 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           clipBehavior: Clip.antiAlias,
                           child: Stack(
                             children: [
-                              CachedNetworkImage(
-                                width: 300,
-                                imageUrl: mangas[index].coverArtUrl,
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    CachedNetworkImage(
-                                      imageUrl:
-                                          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
+                              SizedBox.expand(
+                                child: AspectRatio(
+                                  aspectRatio: 2 / 3,
+                                  child: CachedNetworkImage(
+                                    width: 300,
+                                    imageUrl: mangas[index].coverArtUrl,
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
+                                    placeholder: (context, url) => Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: CircularProgressIndicator(),
+                                      ),
                                     ),
+                                    errorWidget: (context, url, error) =>
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
+                                        ),
+                                  ),
+                                ),
                               ),
 
                               Align(
