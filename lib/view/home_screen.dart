@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/view/detail_screen.dart';
-import 'package:manga_reader_app/view/widgets/home_app_bar_widget.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -127,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Container(
+                                  width: double.infinity,
                                   padding: EdgeInsets.all(5.0),
                                   decoration: BoxDecoration(
                                     color: Colors.black.withValues(alpha: 0.3),
