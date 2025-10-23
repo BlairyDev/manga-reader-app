@@ -1,6 +1,10 @@
 # manga_reader_app
 
-# Demo
+# Demo Video
+
+
+
+https://github.com/user-attachments/assets/72676b3c-0724-46a8-ace0-d12dde75d064
 
 
 ## Read your favorite manga in an app
