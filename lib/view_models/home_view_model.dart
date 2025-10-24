@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 
@@ -7,17 +8,25 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel({required this.repository});
 
-  bool _isLoading = true;
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   List<MangaData> _mangas = [];
   List<MangaData> get mangas => _mangas;
 
-  Future<void> loadMangaSeries() async {
-    _isLoading = true;
+  late final PagingController<int, MangaData> pagingController =
+      PagingController(
+        getNextPageKey: (state) =>
+            state.lastPageIsEmpty ? null : state.nextIntPageKey,
+        fetchPage: (pageKey) => loadMangaSeries(pageKey),
+      );
+
+  Future<List<MangaData>> loadMangaSeries(int offset) async {
+    _isLoading = false;
     try {
-      _mangas = await repository.getMangaSeries();
-      notifyListeners();
+      print((offset - 1).toString() + " offset");
+      final items = await repository.getMangaSeries((offset - 1) * 6);
+      return items;
     } catch (e) {
       _mangas = [];
       throw Exception(e);
@@ -26,10 +35,10 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> loadSearchManga(String title) async {
+  Future<void> loadSearchManga(String title, int offset) async {
     _isLoading = true;
     try {
-      _mangas = await repository.getSearchManga(title);
+      _mangas = await repository.getSearchManga(title, offset);
       notifyListeners();
     } catch (e) {
       _mangas = [];

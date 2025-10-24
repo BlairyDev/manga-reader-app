@@ -8,9 +8,10 @@ class MangadexRepositoryReal implements MangadexRepository {
   final MangadexApiService _service = MangadexApiService();
 
   @override
-  Future<List<MangaData>> getMangaSeries() async {
+  Future<List<MangaData>> getMangaSeries(int offset) async {
     try {
-      final result = await _service.fetchMangaSeries();
+      Future.delayed(Duration(seconds: 3));
+      final result = await _service.fetchMangaSeries(offset);
 
       final response = MangaResponse.fromJson(result);
 
@@ -49,9 +50,9 @@ class MangadexRepositoryReal implements MangadexRepository {
   }
 
   @override
-  Future<List<MangaData>> getSearchManga(String title) async {
+  Future<List<MangaData>> getSearchManga(String title, int offset) async {
     try {
-      final result = await _service.fetchSearchManga(title);
+      final result = await _service.fetchSearchManga(title, offset);
 
       final response = MangaResponse.fromJson(result);
 

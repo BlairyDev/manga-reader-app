@@ -38,7 +38,7 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
                     Provider.of<HomeViewModel>(
                       context,
                       listen: false,
-                    ).loadSearchManga(text);
+                    ).loadSearchManga(text, 0);
 
                     setState(() {
                       _isCarouselMode = false;
@@ -60,7 +60,7 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
                 Provider.of<HomeViewModel>(
                   context,
                   listen: false,
-                ).loadMangaSeries();
+                ).loadMangaSeries(0);
 
                 setState(() {
                   _isCarouselMode = true;
