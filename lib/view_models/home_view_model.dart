@@ -24,7 +24,6 @@ class HomeViewModel extends ChangeNotifier {
   Future<List<MangaData>> loadMangaSeries(int offset) async {
     _isLoading = false;
     try {
-      print((offset - 1).toString() + " offset");
       final items = await repository.getMangaSeries((offset - 1) * 6);
       return items;
     } catch (e) {

@@ -540,17 +540,57 @@ class FluffyDescription {
 }
 
 class Title {
-  Title({required this.en, required this.jaRo, required this.ja});
+  Title({
+    this.en,
+    this.jaRo,
+    this.ja,
+    this.zh,
+    this.zhHk,
+    this.ptBr,
+    this.es,
+    this.esLa,
+    this.koRo,
+    this.zhRo,
+  });
 
   final String? en;
   final String? jaRo;
   final String? ja;
+  final String? zh;
+  final String? zhHk;
+  final String? ptBr;
+  final String? es;
+  final String? esLa;
+  final String? koRo;
+  final String? zhRo;
 
   factory Title.fromJson(Map<String, dynamic> json) {
-    return Title(en: json["en"], jaRo: json["ja-ro"], ja: json["ja"]);
+    return Title(
+      en: json["en"],
+      jaRo: json["ja-ro"],
+      ja: json["ja"],
+      zh: json["zh"],
+      zhHk: json["zh-hk"],
+      ptBr: json["pt-br"],
+      es: json["es"],
+      esLa: json["es-la"],
+      koRo: json["ko-ro"],
+      zhRo: json["zh-ro"],
+    );
   }
 
-  Map<String, dynamic> toJson() => {"en": en};
+  Map<String, dynamic> toJson() => {
+    "en": en,
+    "ja-ro": jaRo,
+    "ja": ja,
+    "zh": zh,
+    "zh-hk": zhHk,
+    "pt-br": ptBr,
+    "es": es,
+    "es-la": esLa,
+    "ko-ro": koRo,
+    "zh-ro": zhRo,
+  };
 }
 
 class Relationship {

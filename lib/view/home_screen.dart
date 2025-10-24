@@ -80,7 +80,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         id: item.id!,
                         title:
                             item.attributes!.title!.en ??
-                            item.attributes!.title!.jaRo.toString(),
+                            item.attributes!.title!.jaRo ??
+                            item.attributes!.title!.ja ??
+                            item.attributes!.title!.zh ??
+                            item.attributes!.title!.zhHk ??
+                            item.attributes!.title!.ptBr ??
+                            item.attributes!.title!.es ??
+                            item.attributes!.title!.esLa ??
+                            item.attributes!.title!.koRo ??
+                            item.attributes!.title!.zhRo.toString(),
                         description: item.attributes!.description!.en
                             .toString(),
                         status: item.attributes!.status ?? "",
