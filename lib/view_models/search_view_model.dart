@@ -3,23 +3,31 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class SearchViewModel extends ChangeNotifier {
   final MangadexRepository repository;
 
-  HomeViewModel({required this.repository});
+  SearchViewModel({required this.repository});
+
+  String _title = "   ";
+
+  String get title => _title;
+
+  set title(String newTitle) {
+    _title = newTitle;
+    notifyListeners();
+  }
 
   late final PagingController<int, MangaData> pagingController =
       PagingController(
         getNextPageKey: (state) =>
             state.lastPageIsEmpty ? null : state.nextIntPageKey,
-        fetchPage: (pageKey) => loadMangaSeries(pageKey),
+        fetchPage: (pageKey) => loadSearchManga(_title, pageKey),
       );
 
-  Future<List<MangaData>> loadMangaSeries(int offset) async {
+  Future<List<MangaData>> loadSearchManga(String title, int offset) async {
     try {
       Future.delayed(Duration(seconds: 5));
-      final items = await repository.getMangaSeries((offset - 1) * 6);
-      return items;
+      return await repository.getSearchManga(title, offset * 6);
     } catch (e) {
       throw Exception(e);
     }

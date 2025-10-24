@@ -10,7 +10,6 @@ class MangadexRepositoryReal implements MangadexRepository {
   @override
   Future<List<MangaData>> getMangaSeries(int offset) async {
     try {
-      Future.delayed(Duration(seconds: 5));
       final result = await _service.fetchMangaSeries(offset);
 
       final response = MangaResponse.fromJson(result);

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
+import 'package:manga_reader_app/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 
-class HomeAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
-  const HomeAppBarWidget({super.key});
+class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
+  const SearchAppBarWidget({super.key});
 
   @override
-  State<HomeAppBarWidget> createState() => _HomeAppBarWidgetState();
+  State<SearchAppBarWidget> createState() => _SearchAppBarWidgetState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
+class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
   bool _isCarouselMode = true;
   Icon visibleIcon = const Icon(Icons.search, color: Colors.white);
   Widget searchBar = const Text(
-    'Manga Reader',
+    'Search Manga',
     style: TextStyle(fontFamily: 'Broadway', fontSize: 24, color: Colors.white),
   );
 
@@ -35,10 +36,13 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
                 searchBar = TextField(
                   textInputAction: TextInputAction.search,
                   onSubmitted: (String text) {
-                    Provider.of<HomeViewModel>(
+                    Provider.of<SearchViewModel>(context, listen: false).title =
+                        text;
+
+                    Provider.of<SearchViewModel>(
                       context,
                       listen: false,
-                    ).loadSearchManga(text, 0);
+                    ).pagingController.refresh();
 
                     setState(() {
                       _isCarouselMode = false;
@@ -46,7 +50,7 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
                   },
                   style: const TextStyle(color: Colors.white, fontSize: 20.0),
                   decoration: const InputDecoration(
-                    hintText: 'Search movies...',
+                    hintText: 'Search series...',
                     hintStyle: TextStyle(color: Colors.white70),
                     border: InputBorder.none,
                   ),
@@ -54,13 +58,13 @@ class _HomeAppBarWidgetState extends State<HomeAppBarWidget> {
               } else {
                 visibleIcon = const Icon(Icons.search, color: Colors.white);
                 searchBar = const Text(
-                  'Movies',
+                  'Search',
                   style: TextStyle(fontFamily: 'Broadway', fontSize: 24),
                 );
-                Provider.of<HomeViewModel>(
+                Provider.of<SearchViewModel>(
                   context,
                   listen: false,
-                ).loadMangaSeries(0);
+                ).loadSearchManga("", 0);
 
                 setState(() {
                   _isCarouselMode = true;

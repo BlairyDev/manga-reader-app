@@ -7,6 +7,7 @@ import 'package:manga_reader_app/view_models/chapter_view_model.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:manga_reader_app/view_models/library_view_model.dart';
+import 'package:manga_reader_app/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -31,6 +32,10 @@ void main() {
         ChangeNotifierProvider(
           create: (_) =>
               LibraryViewModel(dataRepository: locator<DataRepository>()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              SearchViewModel(repository: locator<MangadexRepository>()),
         ),
       ],
       child: MyApp(),
