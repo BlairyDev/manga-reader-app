@@ -211,60 +211,74 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
 
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: mangaVolumes.length,
-                            itemBuilder: (context, index) {
-                              Map<String, Chapter> chapters =
-                                  mangaVolumes[mangaVolumes.keys.elementAt(
-                                        index,
-                                      )]!
-                                      .chapters;
+                        viewModel.isChapterEmpty
+                            ? Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 20),
+                                    Text(
+                                      'No chapters available',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: mangaVolumes.length,
+                                  itemBuilder: (context, index) {
+                                    Map<String, Chapter> chapters =
+                                        mangaVolumes[mangaVolumes.keys
+                                                .elementAt(index)]!
+                                            .chapters;
 
-                              return ExpansionTile(
-                                title: Text("Volume $index"),
-                                children: [
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: chapters.length,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ChapterScreen(
-                                                    chapterId:
-                                                        chapters[chapters.keys
-                                                                .elementAt(
-                                                                  index,
-                                                                )]!
-                                                            .id
-                                                            .toString(),
+                                    return ExpansionTile(
+                                      title: Text("Volume $index"),
+                                      children: [
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: chapters.length,
+                                          itemBuilder: (context, index) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChapterScreen(
+                                                          chapterId:
+                                                              chapters[chapters
+                                                                      .keys
+                                                                      .elementAt(
+                                                                        index,
+                                                                      )]!
+                                                                  .id
+                                                                  .toString(),
+                                                        ),
                                                   ),
-                                            ),
-                                          );
-                                        },
-                                        child: ListTile(
-                                          title: Text(
-                                            chapters[chapters.keys.elementAt(
-                                                  index,
-                                                )]!
-                                                .chapter
-                                                .toString(),
-                                          ),
+                                                );
+                                              },
+                                              child: ListTile(
+                                                title: Text(
+                                                  chapters[chapters.keys
+                                                          .elementAt(index)]!
+                                                      .chapter
+                                                      .toString(),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
                       ],
                     ),
                   ),

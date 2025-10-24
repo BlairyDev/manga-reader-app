@@ -22,10 +22,17 @@ class DetailViewModel extends ChangeNotifier {
   Map<String, Volume> _mangaChapters = {};
   Map<String, Volume> get mangaChapters => _mangaChapters;
 
+  bool _isChaptersEmpty = false;
+  bool get isChapterEmpty => _isChaptersEmpty;
+
   Future<void> loadMangaChapters(String mangaId) async {
     _isLoading = true;
     try {
       _mangaChapters = await mangaRepository.getMangaChapters(mangaId);
+
+      if (_mangaChapters.isEmpty) {
+        _isChaptersEmpty = true;
+      }
 
       notifyListeners();
     } catch (e) {

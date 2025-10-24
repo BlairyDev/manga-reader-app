@@ -27,7 +27,7 @@ class SearchViewModel extends ChangeNotifier {
   Future<List<MangaData>> loadSearchManga(String title, int offset) async {
     try {
       await Future.delayed(Duration(seconds: 3));
-      return await repository.getSearchManga(title, offset * 6);
+      return await repository.getSearchManga(title, (offset - 1) * 6);
     } catch (e) {
       throw Exception(e);
     }

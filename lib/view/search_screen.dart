@@ -139,7 +139,14 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: Text(
                               item.attributes!.title!.en ??
                                   item.attributes!.title!.jaRo ??
-                                  item.attributes!.title!.ja.toString(),
+                                  item.attributes!.title!.ja ??
+                                  item.attributes!.title!.zh ??
+                                  item.attributes!.title!.zhHk ??
+                                  item.attributes!.title!.ptBr ??
+                                  item.attributes!.title!.es ??
+                                  item.attributes!.title!.esLa ??
+                                  item.attributes!.title!.koRo ??
+                                  item.attributes!.title!.zhRo.toString(),
                               style: const TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.white,

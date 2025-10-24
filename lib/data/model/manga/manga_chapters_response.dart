@@ -7,9 +7,11 @@ class MangaChaptersResponse {
   factory MangaChaptersResponse.fromJson(Map<String, dynamic> json) {
     return MangaChaptersResponse(
       result: json["result"],
-      volumes: Map.from(
-        json["volumes"],
-      ).map((k, v) => MapEntry<String, Volume>(k, Volume.fromJson(v))),
+      volumes: (json["volumes"] == null || json["volumes"] is List)
+          ? <String, Volume>{}
+          : Map.from(
+              json["volumes"],
+            ).map((k, v) => MapEntry<String, Volume>(k, Volume.fromJson(v))),
     );
   }
 

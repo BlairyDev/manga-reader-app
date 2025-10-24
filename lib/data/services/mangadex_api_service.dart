@@ -39,7 +39,7 @@ class MangadexApiService {
     String title,
     int offset,
   ) async {
-    String text = title.replaceAll(' ', '%');
+    String text = Uri.encodeComponent(title);
 
     final String upcomingAPI =
         "https://api.mangadex.org/manga?limit=6&offset=${offset}&title=${text}&includedTagsMode=AND&excludedTagsMode=OR&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&contentRating%5B%5D=erotica&order%5BlatestUploadedChapter%5D=desc&includes%5B%5D=cover_art";
