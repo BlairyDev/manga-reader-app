@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manga_reader_app/view/home_screen.dart';
 import 'package:manga_reader_app/view/library_screen.dart';
 import 'package:manga_reader_app/view/search_screen.dart';
+import 'package:manga_reader_app/view/settings_screen.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -13,7 +14,7 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [HomeScreen(), LibraryScreen()];
+  final List<Widget> _pages = [HomeScreen(), LibraryScreen(), SettingsScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +36,23 @@ class _NavigationState extends State<Navigation> {
                 ),
               ],
             )
-          : AppBar(
+          : _currentIndex == 1
+          ? AppBar(
               backgroundColor: const Color.fromARGB(255, 45, 119, 230),
               title: Text("Library", style: TextStyle(color: Colors.white)),
+            )
+          : AppBar(
+              backgroundColor: const Color.fromARGB(255, 45, 119, 230),
+              title: Text("Settings", style: TextStyle(color: Colors.white)),
             ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Library"),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Library"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Settings",
+          ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: Colors.white,

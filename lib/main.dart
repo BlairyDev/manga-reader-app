@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/data/repositories/data_repository/data_repository.dart';
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 import 'package:manga_reader_app/di/locator.dart';
@@ -9,6 +10,7 @@ import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:manga_reader_app/view_models/library_view_model.dart';
 import 'package:manga_reader_app/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   setupLocator();
@@ -43,17 +45,43 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    initThemeMode();
+    super.initState();
+  }
+
+  void initThemeMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool? theme = prefs.getBool(Constants.themeModeKey);
+    isDarkModeNotifier.value = theme ?? true;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
-      home: Navigation(),
+    return ValueListenableBuilder(
+      valueListenable: isDarkModeNotifier,
+      builder: (context, isDarkMode, child) {
+        return MaterialApp(
+          title: 'Manga Reader App',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blue,
+              brightness: isDarkMode ? Brightness.dark : Brightness.light,
+            ),
+          ),
+          home: Navigation(),
+        );
+      },
     );
+    ;
   }
 }

@@ -20,15 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  void dispose() {
-    Provider.of<HomeViewModel>(
-      context,
-      listen: false,
-    ).pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     late final PagingController<int, MangaData> pagingController =
         Provider.of<HomeViewModel>(context, listen: false).pagingController;
