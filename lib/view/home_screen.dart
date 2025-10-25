@@ -62,6 +62,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   .map((r) => r.attributes?.name ?? "")
                   .toList();
 
+              final tags = item.attributes?.tags ?? [];
+
+              List<String> combineTags = tags
+                  .map(
+                    (tag) =>
+                        tag.attributes?.name?.en ??
+                        tag.attributes?.name?.jaRo ??
+                        tag.attributes?.name?.ja ??
+                        tag.attributes?.name?.zh ??
+                        tag.attributes?.name?.zhHk ??
+                        tag.attributes?.name?.ptBr ??
+                        tag.attributes?.name?.es ??
+                        tag.attributes?.name?.esLa ??
+                        tag.attributes?.name?.koRo ??
+                        tag.attributes?.name?.zhRo,
+                  )
+                  .whereType<String>()
+                  .toList();
+
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -79,12 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             item.attributes!.title!.es ??
                             item.attributes!.title!.esLa ??
                             item.attributes!.title!.koRo ??
-                            item.attributes!.title!.koRo.toString(),
+                            item.attributes!.title!.zhRo.toString(),
                         description: item.attributes!.description!.en
                             .toString(),
                         status: item.attributes!.status ?? "",
                         authors: authorNames,
                         artists: artistNames,
+                        tags: combineTags,
                         coverArtUrl: coverArtUrl.toString(),
                       ),
                     ),
@@ -137,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 item.attributes!.title!.es ??
                                 item.attributes!.title!.esLa ??
                                 item.attributes!.title!.koRo ??
-                                item.attributes!.title!.koRo.toString(),
+                                item.attributes!.title!.zhRo.toString(),
                             style: const TextStyle(
                               fontSize: 18.0,
                               color: Colors.white,

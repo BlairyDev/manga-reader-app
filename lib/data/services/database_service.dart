@@ -30,6 +30,7 @@ class DatabaseService {
         description TEXT,
         authors TEXT,
         artists TEXT,
+        tags TEXT,
         coverArtUrl TEXT,
         status TEXT
       )

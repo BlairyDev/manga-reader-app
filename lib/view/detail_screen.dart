@@ -16,6 +16,7 @@ class DetailScreen extends StatefulWidget {
     required this.status,
     required this.authors,
     required this.artists,
+    required this.tags,
     required this.coverArtUrl,
   });
 
@@ -25,6 +26,7 @@ class DetailScreen extends StatefulWidget {
   final String status;
   final List<String> authors;
   final List<String> artists;
+  final List<String> tags;
   final String coverArtUrl;
 
   @override
@@ -117,6 +119,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                 authors: authors,
                                                 artists: artists,
                                                 coverArtUrl: widget.coverArtUrl,
+                                                tags: widget.tags,
                                                 status: widget.status,
                                               ),
                                             );
@@ -209,6 +212,22 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                             ),
                           ],
+                        ),
+
+                        Wrap(
+                          spacing: 7.0,
+                          children: widget.tags.map((String tag) {
+                            return Chip(
+                              label: Text(
+                                tag,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                              side: BorderSide(color: Colors.blue),
+                            );
+                          }).toList(),
                         ),
 
                         viewModel.isChapterEmpty

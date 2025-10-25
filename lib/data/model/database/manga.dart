@@ -7,6 +7,7 @@ class Manga {
   final String description;
   final List<String> authors;
   final List<String> artists;
+  final List<String> tags;
   final String coverArtUrl;
   final String status;
 
@@ -17,6 +18,7 @@ class Manga {
     required this.description,
     required this.authors,
     required this.artists,
+    required this.tags,
     required this.coverArtUrl,
     required this.status,
   });
@@ -29,6 +31,7 @@ class Manga {
       'description': description,
       'authors': jsonEncode(authors),
       'artists': jsonEncode(artists),
+      'tags': jsonEncode(tags),
       'coverArtUrl': coverArtUrl,
       'status': status,
     };
@@ -45,6 +48,9 @@ class Manga {
           : [],
       artists: map['artists'] != null
           ? List<String>.from(jsonDecode(map['artists']))
+          : [],
+      tags: map['tags'] != null
+          ? List<String>.from(jsonDecode(map['tags']))
           : [],
       coverArtUrl: map['coverArtUrl'],
       status: map['status'],

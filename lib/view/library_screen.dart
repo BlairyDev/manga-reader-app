@@ -55,6 +55,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 status: mangas[index].status,
                                 authors: mangas[index].authors,
                                 artists: mangas[index].artists,
+                                tags: [],
                                 coverArtUrl: mangas[index].coverArtUrl,
                               ),
                             ),
