@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: PagingListener(
         controller: pagingController,
         builder: (context, state, fetchNextPage) => PagedGridView<int, MangaData>(
+          padding: EdgeInsets.all(8.0),
           state: state,
           fetchNextPage: fetchNextPage,
           builderDelegate: PagedChildBuilderDelegate(

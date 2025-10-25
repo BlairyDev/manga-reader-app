@@ -32,88 +32,86 @@ class _LibraryScreenState extends State<LibraryScreen> {
         return Center(
           child: isLoading
               ? CircularProgressIndicator()
-              : Padding(
+              : GridView.builder(
                   padding: EdgeInsets.all(8.0),
-                  child: GridView.builder(
-                    itemCount: mangasCount,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                      childAspectRatio: 0.8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                id: mangas[index].mangaId,
-                                title: mangas[index].title,
-                                description: mangas[index].description,
-                                status: mangas[index].status,
-                                authors: mangas[index].authors,
-                                artists: mangas[index].artists,
-                                tags: [],
-                                coverArtUrl: mangas[index].coverArtUrl,
+                  itemCount: mangasCount,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 10.0,
+                    childAspectRatio: 100 / 150,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailScreen(
+                              id: mangas[index].mangaId,
+                              title: mangas[index].title,
+                              description: mangas[index].description,
+                              status: mangas[index].status,
+                              authors: mangas[index].authors,
+                              artists: mangas[index].artists,
+                              tags: [],
+                              coverArtUrl: mangas[index].coverArtUrl,
+                            ),
+                          ),
+                        );
+                      },
+
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            SizedBox.expand(
+                              child: AspectRatio(
+                                aspectRatio: 2 / 3,
+                                child: CachedNetworkImage(
+                                  width: 300,
+                                  imageUrl: mangas[index].coverArtUrl,
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.topCenter,
+                                  placeholder: (context, url) => Center(
+                                    child: SizedBox(
+                                      width: 40,
+                                      height: 40,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
+                                      ),
+                                ),
                               ),
                             ),
-                          );
-                        },
 
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Stack(
-                            children: [
-                              SizedBox.expand(
-                                child: AspectRatio(
-                                  aspectRatio: 2 / 3,
-                                  child: CachedNetworkImage(
-                                    width: 300,
-                                    imageUrl: mangas[index].coverArtUrl,
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.topCenter,
-                                    placeholder: (context, url) => Center(
-                                      child: SizedBox(
-                                        width: 40,
-                                        height: 40,
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        CachedNetworkImage(
-                                          imageUrl:
-                                              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019",
-                                        ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                padding: EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withValues(alpha: 0.3),
+                                ),
+                                child: Text(
+                                  mangas[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.white,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
                               ),
-
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withValues(alpha: 0.3),
-                                  ),
-                                  child: Text(
-                                    mangas[index].title,
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.white,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
         );
       },

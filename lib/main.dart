@@ -71,6 +71,7 @@ class _MyAppState extends State<MyApp> {
       valueListenable: isDarkModeNotifier,
       builder: (context, isDarkMode, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Manga Reader App',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(

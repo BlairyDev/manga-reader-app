@@ -3,6 +3,7 @@ import 'package:manga_reader_app/view/home_screen.dart';
 import 'package:manga_reader_app/view/library_screen.dart';
 import 'package:manga_reader_app/view/search_screen.dart';
 import 'package:manga_reader_app/view/settings_screen.dart';
+import 'package:manga_reader_app/view/widgets/top_app_bar_widget.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -20,31 +21,21 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _currentIndex == 0
-          ? AppBar(
-              backgroundColor: const Color.fromARGB(255, 45, 119, 230),
-              title: Text(
-                "Manga Reader App",
-                style: TextStyle(color: Colors.white),
-              ),
+          ? TopAppBarWidget(
+              title: "Manga Reader App",
               actions: [
                 IconButton(
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SearchScreen()),
                   ),
-                  icon: const Icon(Icons.search, color: Colors.white),
+                  icon: const Icon(Icons.search),
                 ),
               ],
             )
           : _currentIndex == 1
-          ? AppBar(
-              backgroundColor: const Color.fromARGB(255, 45, 119, 230),
-              title: Text("Library", style: TextStyle(color: Colors.white)),
-            )
-          : AppBar(
-              backgroundColor: const Color.fromARGB(255, 45, 119, 230),
-              title: Text("Settings", style: TextStyle(color: Colors.white)),
-            ),
+          ? TopAppBarWidget(title: "Library")
+          : TopAppBarWidget(title: "Settings"),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -55,8 +46,6 @@ class _NavigationState extends State<Navigation> {
           ),
         ],
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        backgroundColor: Colors.blue,
         onTap: (index) => setState(() {
           _currentIndex = index;
         }),

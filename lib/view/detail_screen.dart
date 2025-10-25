@@ -174,7 +174,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                               widget.description,
                                               expandText: "Show More",
                                               collapseText: "Show Less",
-                                              maxLines: 4,
+                                              maxLines: 3,
                                               linkColor: Colors.blue,
                                             ),
                                             SizedBox(height: 12),
@@ -214,20 +214,20 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
 
-                        Wrap(
-                          spacing: 7.0,
-                          children: widget.tags.map((String tag) {
-                            return Chip(
-                              label: Text(
-                                tag,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.blue,
+                        Container(
+                          width: double.infinity,
+                          child: Wrap(
+                            alignment: WrapAlignment.start,
+                            spacing: 7.0,
+                            children: widget.tags.map((String tag) {
+                              return Chip(
+                                label: Text(
+                                  tag,
+                                  style: TextStyle(fontSize: 12),
                                 ),
-                              ),
-                              side: BorderSide(color: Colors.blue),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
 
                         viewModel.isChapterEmpty

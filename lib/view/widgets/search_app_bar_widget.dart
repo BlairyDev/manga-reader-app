@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:manga_reader_app/view_models/search_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,6 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 45, 119, 230),
       title: searchBar,
       actions: <Widget>[
         IconButton(
