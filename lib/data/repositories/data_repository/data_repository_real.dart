@@ -6,7 +6,6 @@ class DataRepositoryReal implements DataRepository {
   @override
   Future<List<Manga>> getMangaSeries() async {
     final mangaMaps = await DatabaseService.instance.queryAllMangas();
-    print(mangaMaps.toString() + " database working");
     return mangaMaps.map((manga) => Manga.fromMap(manga)).toList();
   }
 
@@ -24,5 +23,21 @@ class DataRepositoryReal implements DataRepository {
   Future<bool> checkInLibrary(String mangaId) async {
     bool inLibrary = await DatabaseService.instance.checkInLibrary(mangaId);
     return inLibrary;
+  }
+
+  @override
+  Future<bool> getExportDatabase() async {
+    final result = await DatabaseService.instance.exportDatabase();
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> getImportDatabase() {
+    // TODO: implement fetchImportDatabase
+    throw UnimplementedError();
   }
 }

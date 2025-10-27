@@ -9,6 +9,8 @@ import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:manga_reader_app/view_models/library_view_model.dart';
 import 'package:manga_reader_app/view_models/search_view_model.dart';
+import 'package:manga_reader_app/view_models/settings_view_model.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,6 +41,10 @@ void main() {
           create: (_) =>
               SearchViewModel(repository: locator<MangadexRepository>()),
         ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              SettingsViewModel(dataRepository: locator<DataRepository>()),
+        ),
       ],
       child: MyApp(),
     ),
@@ -56,7 +62,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     initThemeMode();
+    _checkStoragePermission();
     super.initState();
+  }
+
+  Future<void> _checkStoragePermission() async {
+    var status = await Permission.storage.status;
+    if (status.isDenied) {
+      await Permission.storage.request();
+    }
   }
 
   void initThemeMode() async {
@@ -83,6 +97,5 @@ class _MyAppState extends State<MyApp> {
         );
       },
     );
-    ;
   }
 }

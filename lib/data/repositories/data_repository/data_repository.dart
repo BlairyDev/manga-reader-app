@@ -5,4 +5,6 @@ abstract class DataRepository {
   Future<void> insertManga(Manga manga);
   Future<void> removeManga(String mangaId);
   Future<bool> checkInLibrary(String mangaId);
+  Future<bool> getExportDatabase();
+  Future<bool> getImportDatabase();
 }

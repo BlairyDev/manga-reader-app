@@ -25,4 +25,16 @@ class DataRepositoryFake implements DataRepository {
     // TODO: implement checkInLibrary
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> getExportDatabase() {
+    // TODO: implement fetchExportDatabase
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> getImportDatabase() {
+    // TODO: implement fetchImportDatabase
+    throw UnimplementedError();
+  }
 }
