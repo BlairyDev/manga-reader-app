@@ -29,7 +29,7 @@ class DatabaseService {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE manga (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         mangaId TEXT,
         title TEXT,
         description TEXT,
@@ -86,11 +86,14 @@ class DatabaseService {
 
       int counter = 1;
       while (await File(filePath).exists()) {
-        String nameOnly = basenameWithoutExtension('manga_export.text');
-        String ext = extension('manga_export.text');
+        String nameOnly = basenameWithoutExtension('manga_export.txt');
+        String ext = extension('manga_export.txt');
         filePath = join(downloadsDir.path, '$nameOnly($counter)$ext');
         counter++;
       }
+
+      print(jsonData + " test");
+
       await File(filePath).writeAsString(jsonData);
       return true;
     } catch (e) {
@@ -103,35 +106,49 @@ class DatabaseService {
     return join(databasesPath, databaseName);
   }
 
-  Future<void> importDatabase() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['db'],
-    );
-
-    if (result == null) return;
-    File importedFile = File(result.files.single.path!);
-
-    Database importedDb = await openDatabase(importedFile.path);
-
-    List<Map<String, dynamic>> importedMangas = await importedDb.query('manga');
-
-    Database currentDb = await instance.db;
-
-    for (var mangaMap in importedMangas) {
-      String mangaId = mangaMap['mangaId'];
-
-      List<Map<String, dynamic>> existing = await currentDb.query(
-        'manga',
-        where: 'mangaId = ?',
-        whereArgs: [mangaId],
+  Future<bool> importDatabase() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['.txt'],
       );
 
-      if (existing.isEmpty) {
-        await currentDb.insert('manga', mangaMap);
-      }
-    }
+      if (result != null && result.files.single.path != null) {
+        final file = File(result.files.single.path!);
+        final content = await file.readAsString();
 
-    await importedDb.close();
+        final decoded = json.decode(content);
+        print(content);
+
+        for (var item in decoded) {
+          String authorsString = item['authors'];
+          List<String> authors = List<String>.from(jsonDecode(authorsString));
+
+          String artistsString = item['artists'];
+          List<String> artists = List<String>.from(jsonDecode(artistsString));
+
+          String tagsString = item['tags'];
+          List<String> tags = List<String>.from(jsonDecode(tagsString));
+
+          Manga manga = Manga(
+            mangaId: item['mangaId'],
+            title: item['title'],
+            description: item['description'],
+            authors: authors,
+            artists: artists,
+            tags: tags,
+            coverArtUrl: item['coverArtUrl'],
+            status: item['status'],
+          );
+
+          if (!(await checkInLibrary(manga.mangaId))) {
+            insertManga(manga);
+          }
+        }
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -36,8 +36,12 @@ class DataRepositoryReal implements DataRepository {
   }
 
   @override
-  Future<bool> getImportDatabase() {
-    // TODO: implement fetchImportDatabase
-    throw UnimplementedError();
+  Future<bool> getImportDatabase() async {
+    final result = await DatabaseService.instance.importDatabase();
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

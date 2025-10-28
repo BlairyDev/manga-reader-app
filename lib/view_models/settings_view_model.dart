@@ -6,16 +6,37 @@ class SettingsViewModel extends ChangeNotifier {
 
   SettingsViewModel({required this.dataRepository});
 
-  bool _save = true;
-  bool get save => _save;
+  String _message = "";
+  String get message => _message;
 
   Future<void> exportDatabase() async {
     try {
       bool result = await dataRepository.getExportDatabase();
-      _save = result;
+      if (result) {
+        _message = "File saved successfully";
+        notifyListeners();
+      }
     } catch (e) {
-      _save = false;
+      _message =
+          "File not saved. You might not have a library or there was an error.";
+      notifyListeners();
     }
-    notifyListeners();
+  }
+
+  Future<void> importDatabase() async {
+    try {
+      bool result = await dataRepository.getImportDatabase();
+      if (result) {
+        _message = "Library restored successfully";
+        notifyListeners();
+      }
+    } catch (e) {
+      _message =
+          "Library not restored. You might not have a library or there was an error.";
+    }
+  }
+
+  void clearMessage() {
+    _message = '';
   }
 }
