@@ -54,7 +54,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               status: mangas[index].status,
                               authors: mangas[index].authors,
                               artists: mangas[index].artists,
-                              tags: [],
+                              tags: mangas[index].tags,
                               coverArtUrl: mangas[index].coverArtUrl,
                             ),
                           ),
@@ -92,6 +92,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
+                                width: double.infinity,
                                 padding: EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withValues(alpha: 0.3),
