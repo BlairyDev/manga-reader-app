@@ -255,7 +255,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                             .chapters;
 
                                     return ExpansionTile(
-                                      title: Text("Volume $index"),
+                                      title: Text(
+                                        "Volume ${mangaVolumes.length - index}",
+                                      ),
                                       children: [
                                         ListView.builder(
                                           shrinkWrap: true,

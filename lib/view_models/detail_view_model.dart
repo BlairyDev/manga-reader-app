@@ -27,6 +27,7 @@ class DetailViewModel extends ChangeNotifier {
 
   Future<void> loadMangaChapters(String mangaId) async {
     _isLoading = true;
+    _isChaptersEmpty = false;
     try {
       _mangaChapters = await mangaRepository.getMangaChapters(mangaId);
 
