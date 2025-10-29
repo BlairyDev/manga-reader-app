@@ -83,6 +83,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                     borderRadius: BorderRadius.circular(8),
                                     child: CachedNetworkImage(
                                       width: 150,
+                                      height: 225,
                                       fit: BoxFit.cover,
                                       imageUrl: widget.coverArtUrl,
                                       placeholder: (context, url) =>
