@@ -273,14 +273,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         ChapterScreen(
-                                                          chapterId:
-                                                              chapters[chapters
-                                                                      .keys
-                                                                      .elementAt(
-                                                                        index,
-                                                                      )]!
-                                                                  .id
-                                                                  .toString(),
+                                                          chapterIndex: index,
+                                                          chapters: chapters,
                                                         ),
                                                   ),
                                                 );
