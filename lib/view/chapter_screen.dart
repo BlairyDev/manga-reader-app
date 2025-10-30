@@ -162,43 +162,50 @@ class _ChapterScreenState extends State<ChapterScreen> {
                           },
                         ),
                       )
-                    : ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: imageCount,
-                        itemBuilder: (context, index) {
-                          for (int i = 1; i <= preloadThreshold; i++) {
-                            if (index + i < imageCount) {
-                              precacheImage(
-                                NetworkImage(chapterImageList[index + i]),
-                                context,
-                              );
+                    : GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _showAppBar = !_showAppBar;
+                          });
+                        },
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: imageCount,
+                          itemBuilder: (context, index) {
+                            for (int i = 1; i <= preloadThreshold; i++) {
+                              if (index + i < imageCount) {
+                                precacheImage(
+                                  NetworkImage(chapterImageList[index + i]),
+                                  context,
+                                );
+                              }
                             }
-                          }
-                          return InteractiveViewer(
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
-                              placeholder: (context, url) => SizedBox(
-                                width: double.infinity,
-                                height: 300,
-                                child: const Center(
-                                  child: CircularProgressIndicator(),
+                            return InteractiveViewer(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
+                                placeholder: (context, url) => SizedBox(
+                                  width: double.infinity,
+                                  height: 300,
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
-                              ),
-                              errorWidget: (context, url, error) =>
-                                  const Center(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      height: 500,
-                                      child: Icon(
-                                        Icons.error,
-                                        color: Colors.white,
+                                errorWidget: (context, url, error) =>
+                                    const Center(
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 500,
+                                        child: Icon(
+                                          Icons.error,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                            ),
-                          );
-                        },
+                              ),
+                            );
+                          },
+                        ),
                       )
               : Center(child: CircularProgressIndicator());
         },
