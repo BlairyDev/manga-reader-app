@@ -3,6 +3,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/database/manga.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
+import 'package:manga_reader_app/data/routes/routes_animations.dart';
 import 'package:manga_reader_app/view/chapter_screen.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,7 @@ class _DetailScreenState extends State<DetailScreen> {
     final artistNames = widget.artists.join(", ");
 
     return Scaffold(
-      appBar: AppBar(title: Text("")),
+      appBar: AppBar(title: Text(""), forceMaterialTransparency: true),
       body: Consumer<DetailViewModel>(
         builder: (context, viewModel, child) {
           Map<String, Volume> mangaVolumes = viewModel.mangaChapters;
@@ -270,12 +271,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                               onTap: () {
                                                 Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ChapterScreen(
-                                                          chapterIndex: index,
-                                                          chapters: chapters,
-                                                        ),
+                                                  slideFromRightRoute(
+                                                    ChapterScreen(
+                                                      chapterIndex: index,
+                                                      chapters: chapters,
+                                                    ),
                                                   ),
                                                 );
                                               },

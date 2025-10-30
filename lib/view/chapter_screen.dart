@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
+import 'package:manga_reader_app/data/routes/routes_animations.dart';
 import 'package:manga_reader_app/view_models/chapter_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +44,9 @@ class _ChapterScreenState extends State<ChapterScreen> {
               title: Text(
                 "Chapter ${widget.chapters.length - widget.chapterIndex}",
               ),
+              backgroundColor: isDarkModeNotifier.value
+                  ? Constants.darkThemedNavBar
+                  : Constants.lightThemedNavBar,
             )
           : AppBar(
               automaticallyImplyLeading: false,
@@ -64,8 +69,8 @@ class _ChapterScreenState extends State<ChapterScreen> {
                             ? () {
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChapterScreen(
+                                  noTransitionRoute(
+                                    ChapterScreen(
                                       chapterIndex: widget.chapterIndex + 1,
                                       chapters: widget.chapters,
                                     ),
@@ -79,8 +84,8 @@ class _ChapterScreenState extends State<ChapterScreen> {
                             ? () {
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ChapterScreen(
+                                  noTransitionRoute(
+                                    ChapterScreen(
                                       chapterIndex:
                                           widget.chapterIndex <
                                               widget.chapters.length
@@ -117,74 +122,85 @@ class _ChapterScreenState extends State<ChapterScreen> {
           bool isLoading = viewModel.isLoading;
           String hashChapter = viewModel.hashChapter;
 
-          return isHorizontal
-              ? GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _showAppBar = !_showAppBar;
-                    });
-                  },
-                  child: PageView.builder(
-                    controller: _pageController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: imageCount,
-                    itemBuilder: (context, index) {
-                      if (index + 1 < imageCount) {
-                        precacheImage(
-                          NetworkImage(
-                            "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index + 1]}",
-                          ),
-                          context,
-                        );
-                      }
-                      return InteractiveViewer(
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
-                          placeholder: (context, url) =>
-                              const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) => const Center(
-                            child: Icon(Icons.error, color: Colors.white),
-                          ),
+          return !viewModel.isLoading
+              ? isHorizontal
+                    ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _showAppBar = !_showAppBar;
+                          });
+                        },
+                        child: PageView.builder(
+                          controller: _pageController,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: imageCount,
+                          itemBuilder: (context, index) {
+                            if (index + 1 < imageCount) {
+                              precacheImage(
+                                NetworkImage(
+                                  "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index + 1]}",
+                                ),
+                                context,
+                              );
+                            }
+                            return InteractiveViewer(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
+                                placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                )
-              : ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: imageCount,
-                  itemBuilder: (context, index) {
-                    for (int i = 1; i <= preloadThreshold; i++) {
-                      if (index + i < imageCount) {
-                        precacheImage(
-                          NetworkImage(chapterImageList[index + i]),
-                          context,
-                        );
-                      }
-                    }
-                    return InteractiveViewer(
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
-                        placeholder: (context, url) => SizedBox(
-                          width: double.infinity,
-                          height: 300,
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
-                        errorWidget: (context, url, error) => const Center(
-                          child: SizedBox(
-                            width: double.infinity,
-                            height: 500,
-                            child: Icon(Icons.error, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: imageCount,
+                        itemBuilder: (context, index) {
+                          for (int i = 1; i <= preloadThreshold; i++) {
+                            if (index + i < imageCount) {
+                              precacheImage(
+                                NetworkImage(chapterImageList[index + i]),
+                                context,
+                              );
+                            }
+                          }
+                          return InteractiveViewer(
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  "https://uploads.mangadex.org/data/${hashChapter}/${chapterImageList[index]}",
+                              placeholder: (context, url) => SizedBox(
+                                width: double.infinity,
+                                height: 300,
+                                child: const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Center(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      height: 500,
+                                      child: Icon(
+                                        Icons.error,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                            ),
+                          );
+                        },
+                      )
+              : Center(child: CircularProgressIndicator());
         },
       ),
     );

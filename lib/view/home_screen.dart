@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:manga_reader_app/data/model/manga/manga_response.dart';
+import 'package:manga_reader_app/data/routes/routes_animations.dart';
 import 'package:manga_reader_app/view/detail_screen.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -86,8 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailScreen(
+                    slideFromRightRoute(
+                      DetailScreen(
                         id: item.id!,
                         title:
                             item.attributes!.title!.en ??

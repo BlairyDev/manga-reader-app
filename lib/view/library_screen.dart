@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/model/database/manga.dart';
+import 'package:manga_reader_app/data/routes/routes_animations.dart';
 import 'package:manga_reader_app/view/detail_screen.dart';
 import 'package:manga_reader_app/view_models/library_view_model.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +47,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailScreen(
+                          slideFromRightRoute(
+                            DetailScreen(
                               id: mangas[index].mangaId,
                               title: mangas[index].title,
                               description: mangas[index].description,

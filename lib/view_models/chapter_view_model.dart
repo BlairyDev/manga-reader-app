@@ -17,6 +17,7 @@ class ChapterViewModel extends ChangeNotifier {
   String get hashChapter => _hashChapter;
 
   Future<void> loadChapterImageList(String chapterId) async {
+    _isLoading = true;
     try {
       MangaChapterImageList result = await repository.getChapterImageList(
         chapterId,
