@@ -87,8 +87,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                       height: 225,
                                       fit: BoxFit.cover,
                                       imageUrl: widget.coverArtUrl,
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(),
+                                      placeholder: (context, url) => Center(
+                                        child: SizedBox(
+                                          height: 40,
+                                          width: 40,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
                                       errorWidget: (context, url, error) =>
                                           CachedNetworkImage(
                                             imageUrl:
