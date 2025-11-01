@@ -82,6 +82,9 @@ paginate: true
 
 ### Week 4 - Users can add new series to ther library(finished only 50%)
 
+- 4/5 requirements completed
+- Overall Burndown rate 80%
+
 ---
 
 ## Sprint 2
@@ -94,3 +97,12 @@ paginate: true
 
 - Users are able to change from light mode to dark mode download & import a library data and do an automatic backup(download) of library data with notifications
 - Improve Chapter Page UI with vertical & horizontal scroll and prev & next chapter button
+
+### Week 4 - Minor UI Improvments of the whole app
+
+- 17/17 requirements completed
+- Overall Burndown rate 100%
+
+### Testing
+
+# Unit Testing(ViewModels & Models) All tests passed 35/35
