@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/data/model/manga/manga_chapters_response.dart';
-import 'package:manga_reader_app/data/routes/routes_animations.dart';
+import 'package:manga_reader_app/view/routes/routes_animations.dart';
 import 'package:manga_reader_app/view_models/chapter_view_model.dart';
 import 'package:provider/provider.dart';
 
