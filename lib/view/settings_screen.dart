@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:intl/intl.dart';
 import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/view_models/settings_view_model.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +81,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(Icons.upload_file),
             ),
             ListTile(
-              title: Text("Backup Frequency"),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Backup Frequency"),
+                  Text(
+                    "Backup started: ${backupStarted.value}",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
               trailing: DropdownButton<String>(
                 value: _backupFrequency,
                 items: const [
@@ -101,6 +111,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   await Workmanager().cancelByUniqueName("exportData");
                   setState(() {
                     _backupFrequency = value!;
+                    backupStarted.value = DateFormat(
+                      'yyyy-MM-dd',
+                    ).format(DateTime.now());
                   });
 
                   switch (_backupFrequency) {

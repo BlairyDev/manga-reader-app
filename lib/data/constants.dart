@@ -9,4 +9,4 @@ class Constants {
 }
 
 ValueNotifier<bool> isDarkModeNotifier = ValueNotifier(false);
-ValueNotifier<DateTime> backupStarted = ValueNotifier(DateTime.now());
+ValueNotifier<String> backupStarted = ValueNotifier("");

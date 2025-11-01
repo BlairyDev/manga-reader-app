@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/data/repositories/data_repository/data_repository.dart';
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
@@ -72,6 +73,18 @@ Future<void> showNotification(String title, String body) async {
   await flutterLocalNotificationsPlugin.show(0, title, body, platformDetails);
 }
 
+Future<void> checkFirstTimeBackup() async {
+  if (backupStarted.value.isEmpty) {
+    await Workmanager().cancelByUniqueName("exportData");
+    await Workmanager().registerPeriodicTask(
+      "exportData",
+      "exportData",
+      frequency: Duration(days: 7),
+    );
+    backupStarted.value = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  }
+}
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(callbackDispatcher);
@@ -125,6 +138,7 @@ class _MyAppState extends State<MyApp> {
     _checkStoragePermission();
     _checkNotificationPermission();
     initNotifications();
+    checkFirstTimeBackup();
     super.initState();
   }
 
