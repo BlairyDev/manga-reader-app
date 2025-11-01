@@ -22,7 +22,7 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       appBar: _currentIndex == 0
           ? TopAppBarWidget(
-              title: "Manga Reader App",
+              title: "MangaStack",
               actions: [
                 IconButton(
                   onPressed: () => Navigator.push(
