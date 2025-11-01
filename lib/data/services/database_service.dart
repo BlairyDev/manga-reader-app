@@ -92,8 +92,6 @@ class DatabaseService {
         counter++;
       }
 
-      print(jsonData + " test");
-
       await File(filePath).writeAsString(jsonData);
       return true;
     } catch (e) {

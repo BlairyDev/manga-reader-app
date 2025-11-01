@@ -4,6 +4,7 @@ import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/view_models/settings_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,7 +14,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _backupFrequency = 'Every month';
+  String _backupFrequency = 'Every week';
+
+  Duration backupFrequency = Duration(days: 7);
 
   @override
   Widget build(BuildContext context) {
@@ -82,22 +85,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: _backupFrequency,
                 items: const [
                   DropdownMenuItem(
-                    value: "Every month",
-                    child: Text("Every month"),
-                  ),
-                  DropdownMenuItem(
                     value: "Every week",
                     child: Text("Every week"),
+                  ),
+                  DropdownMenuItem(
+                    value: "Every month",
+                    child: Text("Every month"),
                   ),
                   DropdownMenuItem(
                     value: "Every day",
                     child: Text("Every day"),
                   ),
                 ],
-                onChanged: (value) {
+                onChanged: (value) async {
+                  await Workmanager().cancelByUniqueName("exportData");
                   setState(() {
                     _backupFrequency = value!;
                   });
+
+                  switch (_backupFrequency) {
+                    case "Every week":
+                      backupFrequency = Duration(minutes: 15);
+                      break;
+                    case "Every month":
+                      backupFrequency = Duration(days: 30);
+                      break;
+                    case "Every day":
+                      backupFrequency = Duration(days: 1);
+                      break;
+                  }
+
+                  await Workmanager().registerPeriodicTask(
+                    "exportData",
+                    "exportData",
+                    frequency: backupFrequency,
+                  );
                 },
               ),
               leading: Icon(Icons.schedule),

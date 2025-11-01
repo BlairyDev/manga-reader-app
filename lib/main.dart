@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:manga_reader_app/data/constants.dart';
 import 'package:manga_reader_app/data/repositories/data_repository/data_repository.dart';
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
+import 'package:manga_reader_app/data/services/database_service.dart';
 import 'package:manga_reader_app/di/locator.dart';
 import 'package:manga_reader_app/navigation.dart';
 import 'package:manga_reader_app/view_models/chapter_view_model.dart';
@@ -13,8 +15,66 @@ import 'package:manga_reader_app/view_models/settings_view_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:workmanager/workmanager.dart';
+
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((taskName, inputData) async {
+    try {
+      final result = await DatabaseService.instance.exportDatabase();
+      if (result) {
+        print("work manager working");
+        // await showNotification(
+        //   'Backup Complete',
+        //   'Successfully downloaded backup file',
+        // );
+        await showNotification(
+          'Backup Complete',
+          'Successfully downloaded backup file',
+        );
+        return Future.value(result);
+      } else {
+        return Future.value(result);
+      }
+    } catch (e) {
+      return Future.value(false);
+    }
+  });
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> initNotifications() async {
+  const AndroidInitializationSettings androidSettings =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  final InitializationSettings settings = InitializationSettings(
+    android: androidSettings,
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(settings);
+}
+
+Future<void> showNotification(String title, String body) async {
+  const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+    'backup_channel',
+    'Backup Notifications',
+    channelDescription: 'Notifications for background backups',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+
+  const NotificationDetails platformDetails = NotificationDetails(
+    android: androidDetails,
+  );
+
+  await flutterLocalNotificationsPlugin.show(0, title, body, platformDetails);
+}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(callbackDispatcher);
   setupLocator();
   runApp(
     MultiProvider(
@@ -63,6 +123,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     initThemeMode();
     _checkStoragePermission();
+    _checkNotificationPermission();
+    initNotifications();
     super.initState();
   }
 
@@ -71,6 +133,16 @@ class _MyAppState extends State<MyApp> {
     if (status.isDenied) {
       await Permission.storage.request();
     }
+  }
+
+  Future<void> _checkNotificationPermission() async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >()
+        ?.requestNotificationsPermission();
   }
 
   void initThemeMode() async {
