@@ -6,7 +6,7 @@ import 'package:manga_reader_app/data/repositories/data_repository/data_reposito
 import 'package:manga_reader_app/data/repositories/manga_repository/mangadex_repository.dart';
 import 'package:manga_reader_app/data/services/database_service.dart';
 import 'package:manga_reader_app/di/locator.dart';
-import 'package:manga_reader_app/navigation.dart';
+import 'package:manga_reader_app/data/routes/navigation.dart';
 import 'package:manga_reader_app/view_models/chapter_view_model.dart';
 import 'package:manga_reader_app/view_models/detail_view_model.dart';
 import 'package:manga_reader_app/view_models/home_view_model.dart';
