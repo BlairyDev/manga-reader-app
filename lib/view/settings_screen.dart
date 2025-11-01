@@ -59,7 +59,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               secondary: Icon(Icons.dark_mode),
             ),
-            Divider(),
             ListTile(
               title: Text(
                 "Backup & Restore",
