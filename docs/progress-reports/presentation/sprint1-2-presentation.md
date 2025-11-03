@@ -44,6 +44,7 @@ paginate: true
 # Pros
 
 - Official English Translation
+- Good UI
 
 ---
 

@@ -10,3 +10,4 @@ class Constants {
 
 ValueNotifier<bool> isDarkModeNotifier = ValueNotifier(false);
 ValueNotifier<String> backupStarted = ValueNotifier("");
+ValueNotifier<bool> isHorizontal = ValueNotifier(true);

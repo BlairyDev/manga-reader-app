@@ -24,7 +24,6 @@ class _ChapterScreenState extends State<ChapterScreen> {
   final PageController _pageController = PageController();
   final int preloadThreshold = 1;
   String? hashChapter;
-  bool isHorizontal = true;
   bool _showAppBar = true;
 
   @override
@@ -104,10 +103,10 @@ class _ChapterScreenState extends State<ChapterScreen> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        isHorizontal = !isHorizontal;
+                        isHorizontal.value = !isHorizontal.value;
                       });
                     },
-                    icon: isHorizontal
+                    icon: isHorizontal.value
                         ? Icon(Icons.swap_horiz, size: 30)
                         : Icon(Icons.swap_vert, size: 30),
                   ),
@@ -123,7 +122,7 @@ class _ChapterScreenState extends State<ChapterScreen> {
           String hashChapter = viewModel.hashChapter;
 
           return !viewModel.isLoading
-              ? isHorizontal
+              ? isHorizontal.value
                     ? GestureDetector(
                         onTap: () {
                           setState(() {
