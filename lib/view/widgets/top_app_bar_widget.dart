@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manga_reader_app/data/constants.dart';
 
 class TopAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   const TopAppBarWidget({
@@ -21,6 +22,7 @@ class _TopAppBarWidgetState extends State<TopAppBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(widget.title),
+      forceMaterialTransparency: true,
       actions: widget.actions.isEmpty ? [] : widget.actions,
     );
   }
