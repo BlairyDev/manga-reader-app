@@ -25,10 +25,6 @@ void callbackDispatcher() {
       final result = await DatabaseService.instance.exportDatabase();
       if (result) {
         print("work manager working");
-        // await showNotification(
-        //   'Backup Complete',
-        //   'Successfully downloaded backup file',
-        // );
         await showNotification(
           'Backup Complete',
           'Successfully downloaded backup file',
