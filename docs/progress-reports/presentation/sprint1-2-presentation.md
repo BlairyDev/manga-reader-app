@@ -69,6 +69,12 @@ paginate: true
 
 ---
 
+# Notification Preview
+
+<img src="./images/notification.png" width="250">
+
+---
+
 # Sprint Summary
 
 ---
@@ -99,11 +105,15 @@ paginate: true
 - Users are able to change from light mode to dark mode download & import a library data and do an automatic backup(download) of library data with notifications
 - Improve Chapter Page UI with vertical & horizontal scroll and prev & next chapter button
 
+---
+
 ### Week 4 - Minor UI Improvments of the whole app
 
 - 17/17 requirements completed
 - Overall Burndown rate 100%
 
+---
+
 ### Testing
 
-# Unit Testing(ViewModels & Models) All tests passed 35/35
+- Unit Testing(ViewModels & Models) All tests passed 35/35
