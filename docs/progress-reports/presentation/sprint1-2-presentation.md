@@ -8,6 +8,10 @@ paginate: true
 
 ---
 
+# Little bit of a background
+
+---
+
 # The Problems
 
 ---
