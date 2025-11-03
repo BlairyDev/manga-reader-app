@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:downloadsfolder/downloadsfolder.dart';
 import 'package:flutter/material.dart';
 import 'package:manga_reader_app/data/repositories/data_repository/data_repository.dart';
 
@@ -8,6 +11,14 @@ class SettingsViewModel extends ChangeNotifier {
 
   String _message = "";
   String get message => _message;
+  String _path = "";
+  String get path => _path;
+
+  Future<void> getDownloadsPath() async {
+    Directory downloadsDir = await getDownloadDirectory();
+    _path = downloadsDir.path;
+    notifyListeners();
+  }
 
   Future<void> exportDatabase() async {
     try {

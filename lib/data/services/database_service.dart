@@ -116,7 +116,6 @@ class DatabaseService {
         final content = await file.readAsString();
 
         final decoded = json.decode(content);
-        print(content);
 
         for (var item in decoded) {
           String authorsString = item['authors'];

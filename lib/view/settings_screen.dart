@@ -15,9 +15,15 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String _backupFrequency = 'Every week';
+  String _backupFrequency = 'Weekly';
 
   Duration backupFrequency = Duration(days: 7);
+
+  @override
+  void initState() {
+    Provider.of<SettingsViewModel>(context, listen: false).getDownloadsPath();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +72,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             ListTile(
-              title: Text("Download Library"),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Download Library"),
+                  Text(
+                    "File path: ${viewModel.path}",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
               onTap: () {
                 viewModel.exportDatabase();
               },
@@ -93,18 +108,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               trailing: DropdownButton<String>(
                 value: _backupFrequency,
                 items: const [
-                  DropdownMenuItem(
-                    value: "Every week",
-                    child: Text("Every week"),
-                  ),
-                  DropdownMenuItem(
-                    value: "Every month",
-                    child: Text("Every month"),
-                  ),
-                  DropdownMenuItem(
-                    value: "Every day",
-                    child: Text("Every day"),
-                  ),
+                  DropdownMenuItem(value: "Weekly", child: Text("Weekly")),
+                  DropdownMenuItem(value: "Monthly", child: Text("Monthly")),
+                  DropdownMenuItem(value: "Daily", child: Text("Daily")),
                 ],
                 onChanged: (value) async {
                   await Workmanager().cancelByUniqueName("exportData");
@@ -116,13 +122,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   });
 
                   switch (_backupFrequency) {
-                    case "Every week":
+                    case "Weekly":
                       backupFrequency = Duration(minutes: 15);
                       break;
-                    case "Every month":
+                    case "Monthly":
                       backupFrequency = Duration(days: 30);
                       break;
-                    case "Every day":
+                    case "Daily":
                       backupFrequency = Duration(days: 1);
                       break;
                   }
