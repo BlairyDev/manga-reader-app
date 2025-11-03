@@ -121,3 +121,10 @@ paginate: true
 ### Testing
 
 - Unit Testing(ViewModels & Models) All tests passed 35/35
+
+### Improvements in the Future
+
+---
+
+- Improve UI
+- Other than the Mangadex API, we should be able to grab data in other agregator sites
